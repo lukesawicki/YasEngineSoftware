@@ -13,179 +13,89 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Renderer">
-      <UniqueIdentifier>{76b43af1-0a92-4f56-8eea-68f74936d9ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Gameplay">
-      <UniqueIdentifier>{1058c12f-b632-4d53-9d46-6cee73f4e4df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utils">
-      <UniqueIdentifier>{021342dd-a2ea-4f43-a71b-e4f545e0ca52}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI">
-      <UniqueIdentifier>{f38990b1-4aa4-446b-aa84-151d1c480693}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics">
-      <UniqueIdentifier>{32473984-788a-4e7b-ba45-cfd5f740aa4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="HID">
-      <UniqueIdentifier>{f4ff4fa8-7241-4839-b406-a6e0f408c7e0}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="yas_engine.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="button.hpp">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="font_surface.hpp">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="font_object.hpp">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="screen_writer.hpp">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="yas_graphics_library.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="pixels_table.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="game_object.hpp">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="collider.hpp">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="input_output_handler.hpp">
-      <Filter>HID</Filter>
-    </ClInclude>
-    <ClInclude Include="time_picker.hpp">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="randomizer.hpp">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="drawingSurface.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="triangle_2d.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="player.hpp">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="line_2d.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="line_3d.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_4_3.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_4_4.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="plane_3d.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="vector_2d.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="vector_4d.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="dimensions_2d.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_1_4.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_3_3.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_1_3.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_3_2.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_2_2.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="quaternion.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="cylindrical_coordinate.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="spherical_coordinate.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="vertex_2d.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="yas_engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="button.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="font_object.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="font_surface.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="screen_writer.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="yas_graphics_library.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="time_picker.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="pixels_table.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="collider.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="randomizer.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="triangle_3d.hpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="color.hpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="vector_3d.hpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="matrix_1_2.hpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="polar_coordinate_2d.hpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="YasEngineNotes.txt">
       <Filter>Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="line_3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_1_2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_1_3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_1_4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_2_2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_3_2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_3_3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_4_3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_4_4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pixels_table.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="point_3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon_2d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="projector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test_box_3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="time_picker.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_2d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_4d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="yas_application.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pixels_table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="time_picker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="yas_application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

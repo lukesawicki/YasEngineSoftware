@@ -8,6 +8,6 @@ class Matrix_1_4
 {
 	public:
 		float element_0_0_ = 0.0F, element_0_1_ = 0.0F, element_0_2_ = 0.0F, element_0_3_ = 0.0F;
-	};
+};
 
 #endif

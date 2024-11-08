@@ -1,11 +1,11 @@
-#include "yas_engine.hpp"
-#define SDL_MAIN_HANDLED
+#include <iostream>
+
+#include "yas_application.hpp"
 
 int main(int argc, char* argv[]) {
-  YasEngine* yas_engine = YasEngine::GetInstance();
-  yas_engine->initialize();
-  yas_engine->YasEngineStart();
 
-
-  return 0;
+    YasApplication* application = YasApplication::GetInstance();
+    application->Initialize();
+    application->Run();
+    return 0;
 }

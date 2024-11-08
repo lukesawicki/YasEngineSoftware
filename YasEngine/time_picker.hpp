@@ -1,11 +1,16 @@
-#ifndef TIMEPICKER_HPP
-#define TIMEPICKER_HPP
+//
+// Created by lukesawicki on 9/22/24.
+//
 
-class TimePicker {
- public:
+#ifndef TIME_PICKER_HPP
+#define TIME_PICKER_HPP
+
+class TimePicker
+{
+  public:
   TimePicker();
-  double GetSeconds();
-  double GetMiliseconds();
+  double getSeconds();
+  double getMiliseconds();
 };
 
-#endif
+#endif //TIME_PICKER_HPP

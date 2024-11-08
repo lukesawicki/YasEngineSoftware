@@ -1,7 +1,0 @@
-#ifndef SPHERICAL_COORDINATE_HPP
-#define SPHERICAL_COORDINATE_HPP
-
-class S
-};
-
-#endif

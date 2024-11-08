@@ -1,106 +1,121 @@
-#ifndef VECTOR2D_HPP
-#define VECTOR2D_HPP
+//
+// Created by lukesawicki on 9/21/24.
+//
+
+#ifndef VECTOR_2D_HPP
+#define VECTOR_2D_HPP
+
 #include <cmath>
 
-// x, y -> vector components
-// wedlug ilustrowanego slownika matematycznego skladowa = component
+template<typename Type>
+class Vector2D {
+  public:
+    Type x_;
+    Type y_;
 
-typedef class Vector2D {
- public:
-  float x_;
-  float y_;
-
-  Vector2D() {
-    this->x_ = 0;
-    this->y_ = 0;
-  }
-
-  Vector2D(float x, float y) {
-    this->x_ = x;
-    this->y_ = y;
-  }
-
-    Vector2D(const Vector2D* vector_2d) {
-    x_ = vector_2d->x_;
-    y_ = vector_2d->y_;
-  }
-
-  static void NormalizedVector(Vector2D& vector) {
-    double magnitude = GetVectorMagnitude(vector);
-    double x = vector.x_ / magnitude;
-    double y = vector.y_ / magnitude;
-    vector.x_ = static_cast<float>(x);
-    vector.y_ = static_cast<float>(y);
-  }
-
-  static float GetVectorMagnitude(const Vector2D& vector) {
-    return static_cast<float>(sqrt(pow(vector.x_, 2.0) + pow(vector.y_, 2.0)));
-  }
-
-  static float GetVectorMagnitude(float x0, float y0, float x1, float y1) {
-    return static_cast<float>(sqrt(pow(x1 - x0, 2.0) + pow(y1 - y0, 2.0)));
-  }
-
-  static float CrossProduct(const Vector2D& vector_0, const Vector2D& vector_1) {
-    return vector_0.x_ * vector_1.y_ - vector_0.y_ * vector_1.x_;
-  }
-
-  static float DotProduct(const Vector2D& vector_0, const Vector2D& vector_1) {
-    return vector_0.x_ * vector_1.x_ + vector_0.y_ * vector_1.y_;
-  }
-
-  static float AngleBetweenVectors(const Vector2D& vector_0, const Vector2D& vector_1) {
-    return atan2(CrossProduct(vector_0, vector_1), DotProduct(vector_0, vector_1));
-  }
-
-  static void RotateVectorOverTheAngle(Vector2D* vector, float angle) {
-    float modifiedX = vector->x_ * cos(angle) - vector->y_ * sin(angle);
-    float modifiedY = vector->x_ * sin(angle) + vector->y_ * cos(angle);
-
-    vector->x_ = modifiedX;
-    vector->y_ = modifiedY;
-  }
-
-  static Vector2D CreateUnitVectorFromBoundVector(const Vector2D& vector_0,
-                                                        const Vector2D& vector_1) {
-    Vector2D w = Vector2D(vector_0.x_ - vector_1.x_, vector_0.y_ - vector_1.y_);
-    Vector2D::NormalizedVector(w);
-    return w;
-  }
-
-  static void Substract(Vector2D* vector_0, const Vector2D* vector_1) {
-    vector_0->x_ = vector_0->x_ - vector_1->x_;
-    vector_0->y_ = vector_0->y_ - vector_1->y_;
-  }
-
-    static Vector2D* Substract(const Vector2D* vector_0, const Vector2D* vector_1) {
-      Vector2D* resultat = new Vector2D;
-      resultat->x_ = vector_0->x_ - vector_1->x_;
-      resultat->y_ = vector_0->y_ - vector_1->y_;
+    Vector2D() {
+      this->x_ = 0;
+      this->y_ = 0;
     }
 
-    static void Add(Vector2D* vector_0, const Vector2D* vector_1) {
-      vector_0->x_ = vector_0->x_ - vector_1->x_;
-      vector_0->y_ = vector_0->y_ - vector_1->y_;
+    Vector2D(Type x, Type y) {
+      this->x_ = x;
+      this->y_ = y;
     }
 
-    static Vector2D* Add(const Vector2D* vector_0, const Vector2D* vector_1) {
-      Vector2D* resultat = new Vector2D;
-      resultat->x_ = vector_0->x_ + vector_1->x_;
-      resultat->y_ = vector_0->y_ + vector_1->y_;
+    static void NormalizedVector(Vector2D<Type> &vector) {
+      double magnitude = GetVectorMagnitude(vector);
+      double x = vector.x_ / magnitude;
+      double y = vector.y_ / magnitude;
+      vector.x_ = static_cast<Type>(x);
+      vector.y_ = static_cast<Type>(y);
     }
 
-  static void MultiplyByScalar(Vector2D* vector, float scalar) {
-    vector->x_ = vector->x_ * scalar;
-    vector->y_ = vector->y_ * scalar;
-  }
+    static Type GetVectorMagnitude(const Vector2D<Type> &vector) {
+      return static_cast<Type>(sqrt(pow(vector.x_, 2.0) + pow(vector.y_, 2.0)));
+    }
 
-  static double DistanceBetweenPoints(const Vector2D& vector_0,
-                               const Vector2D& vector_1) {
-    return sqrt(pow((vector_0.x_ - vector_1.x_), 2) +
-                pow((vector_0.y_ - vector_1.y_), 2));
-  }
+    static Type GetVectorMagnitude(Type x0, Type y0, Type x1, Type y1) {
+      return static_cast<Type>(sqrt(pow(x1 - x0, 2.0) + pow(y1 - y0, 2.0)));
+    }
 
-} Point2D;
+    static Type CrossProduct(const Vector2D<Type> &u, const Vector2D &v) {
+      return u.x_ * v.y_ - u.y_ * v.x_;
+    }
 
-#endif
+    static Type DotProduct(const Vector2D<Type> &u, const Vector2D &v) {
+      return u.x_ * v.x_ + u.y_ * v.y_;
+    }
+
+    static Type
+    AngleBetweenVectors(const Vector2D<Type> &u, const Vector2D &v) {
+      return atan2(CrossProduct(u, v), DotProduct(u, v));
+    }
+
+    static void RotateVectorOverTheAngle(Vector2D<Type> *v, float angle) {
+      float modifiedX = v->x_ * cos(angle) - v->y_ * sin(angle);
+      float modifiedY = v->x_ * sin(angle) + v->y_ * cos(angle);
+
+      v->x_ = modifiedX;
+      v->y_ = modifiedY;
+    }
+
+    static void RotateVectorOverTheAngleOverPoint(
+      Vector2D<Type> *u, float angle, Vector2D<Type> *point) {
+      Vector2D<float> direction_vector_from_point_to_vector_u =
+          DirectionVectorFromBoundVector(*point, *u);
+
+      Vector2D<float> rotated_vector;
+      rotated_vector.x_ = point->x_ + direction_vector_from_point_to_vector_u.x_
+                          * cos(angle) - direction_vector_from_point_to_vector_u
+                          .y_ * sin(angle);
+      rotated_vector.y_ = point->y_ + direction_vector_from_point_to_vector_u.x_
+                          * sin(angle) + direction_vector_from_point_to_vector_u
+                          .y_ * cos(angle);
+
+      u->x_ = rotated_vector.x_;
+      u->y_ = rotated_vector.y_;
+    }
+
+    static Vector2D<Type> CreateUnitVectorFromBoundVector(
+      const Vector2D<Type> &u,
+      const Vector2D &v) {
+      Vector2D<Type> w = Vector2D<Type>(v.x_ - u.x_, v.y_ - u.y_);
+      Vector2D::NormalizedVector(w);
+      return w;
+    }
+
+    static Vector2D<Type> DirectionVectorFromBoundVector(
+      const Vector2D<Type> &u,
+      const Vector2D &v) {
+      Vector2D<Type> w = Vector2D<Type>(v.x_ - u.x_, v.y_ - u.y_);
+      return w;
+    }
+
+    // minuend => odjemna  - subtrahed => odjemnik
+    static void Substract(Vector2D<Type> *minued,
+                          const Vector2D<Type> &subtrahed) {
+      minued->x_ = minued->x_ - subtrahed.x_;
+      minued->y_ = minued->y_ - subtrahed.y_;
+    }
+
+    static Vector2D<Type> Substract(const Vector2D<Type> &minued,
+                                    const Vector2D<Type> &subtrahed) {
+      Vector2D<Type> result;
+      result.x_ = minued.x_ - subtrahed.x_;
+      result.y_ = minued.y_ - subtrahed.y_;
+      return result;
+    }
+
+    static void MultiplyByScalar(Vector2D<Type> *v, Type scalar) {
+      v->x_ = v->x_ * scalar;
+      v->y_ = v->y_ * scalar;
+    }
+};
+
+typedef Vector2D<float> Vertex2Df;
+typedef Vector2D<int> Vertex2Di;
+typedef Vector2D<float>* Vertex2DfPointer;
+typedef Vector2D<int>* Vertex2DiPointer;
+
+#endif //VECTOR_2D_HPP

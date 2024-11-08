@@ -1,5 +1,9 @@
 # YasEngineSoftware
-UPDATE: The first game on YasEngine was released few weeks ago:
+
+I have stopped developing version on master and now focusing only on rendering on branch: 3D_Renderer. When I will finish simple 3D renderer I will return to YasEngine as whole tool to create games.
+This new 3D YasEngine will be used for the purpose of creating new 3D game loosely based on Beauty of Math.
+
+First game released on YasEngine:
 
 https://lukesawicki.itch.io/beauty-of-math
 

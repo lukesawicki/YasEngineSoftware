@@ -135,60 +135,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="button.hpp" />
-    <ClInclude Include="collider.hpp" />
-    <ClInclude Include="cylindrical_coordinate.hpp" />
-    <ClInclude Include="dimensions_2d.hpp" />
-    <ClInclude Include="drawingSurface.hpp" />
-    <ClInclude Include="font_object.hpp" />
-    <ClInclude Include="font_surface.hpp" />
-    <ClInclude Include="game_object.hpp" />
-    <ClInclude Include="input_output_handler.hpp" />
-    <ClInclude Include="line_2d.hpp" />
+    <Text Include="YasEngineNotes.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="line_3d.hpp" />
+    <ClInclude Include="matrix_1_2.hpp" />
     <ClInclude Include="matrix_1_3.hpp" />
     <ClInclude Include="matrix_1_4.hpp" />
     <ClInclude Include="matrix_2_2.hpp" />
     <ClInclude Include="matrix_3_2.hpp" />
     <ClInclude Include="matrix_3_3.hpp" />
-    <ClInclude Include="matrix_4_4.hpp" />
     <ClInclude Include="matrix_4_3.hpp" />
+    <ClInclude Include="matrix_4_4.hpp" />
     <ClInclude Include="pixels_table.hpp" />
-    <ClInclude Include="plane_3d.hpp" />
-    <ClInclude Include="player.hpp" />
-    <ClInclude Include="quaternion.hpp" />
-    <ClInclude Include="randomizer.hpp" />
-    <ClInclude Include="screen_writer.hpp" />
-    <ClInclude Include="spherical_coordinate.hpp" />
+    <ClInclude Include="point_3d.hpp" />
+    <ClInclude Include="polygon_2d.hpp" />
+    <ClInclude Include="projector.hpp" />
+    <ClInclude Include="renderer.hpp" />
+    <ClInclude Include="test_box_3d.hpp" />
     <ClInclude Include="time_picker.hpp" />
-    <ClInclude Include="triangle_2d.hpp" />
     <ClInclude Include="vector_2d.hpp" />
+    <ClInclude Include="vector_3d.hpp" />
     <ClInclude Include="vector_4d.hpp" />
-    <ClInclude Include="vertex_2d.hpp" />
-    <ClInclude Include="yas_engine.hpp" />
-    <ClInclude Include="yas_graphics_library.hpp" />
+    <ClInclude Include="yas_application.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="button.cpp" />
-    <ClCompile Include="collider.cpp" />
-    <ClCompile Include="color.hpp" />
-    <ClCompile Include="font_object.cpp" />
-    <ClCompile Include="font_surface.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="matrix_1_2.hpp" />
     <ClCompile Include="pixels_table.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="polar_coordinate_2d.hpp" />
-    <ClCompile Include="randomizer.cpp" />
-    <ClCompile Include="screen_writer.cpp" />
+    <ClCompile Include="renderer.cpp" />
     <ClCompile Include="time_picker.cpp" />
-    <ClCompile Include="triangle_3d.hpp" />
-    <ClCompile Include="vector_3d.hpp" />
-    <ClCompile Include="yas_engine.cpp" />
-    <ClCompile Include="yas_graphics_library.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="YasEngineNotes.txt" />
+    <ClCompile Include="yas_application.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

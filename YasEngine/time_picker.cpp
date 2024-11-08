@@ -1,15 +1,21 @@
+//
+// Created by lukesawicki on 9/22/24.
+//
+
 #include "time_picker.hpp"
-
 #include <SDL.h>
-//-----------------------------------------------------------------------------|---------------------------------------|
-//                                                                            80
-//                                                                            120
 
-TimePicker::TimePicker() { ; }
+TimePicker::TimePicker()
+{
+  ;
+}
 
-double TimePicker::GetSeconds() { return SDL_GetTicks() / 1000.0; }
+double TimePicker::getSeconds()
+{
+  return SDL_GetTicks() / 1000.0;
+}
 
-double TimePicker::GetMiliseconds() { return static_cast<double>(SDL_GetTicks()); }
-//                                                                            80
-//                                                                            120
-//-----------------------------------------------------------------------------|---------------------------------------|
+double TimePicker::getMiliseconds()
+{
+  return SDL_GetTicks();
+}

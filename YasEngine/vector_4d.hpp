@@ -1,12 +1,17 @@
+//
+// Created by lukesawicki on 9/21/24.
+//
+
 #ifndef VECTOR_4D_HPP
 #define VECTOR_4D_HPP
 
-typedef class Vector4D {
- public:
-  float x_;
-  float y_;
-  float z_;
-  float w_;
+template<typename Type>
+class Vector4D {
+public:
+  Type x_;
+  Type y_;
+  Type z_;
+  Type w_;
 
   Vector4D() {
     this->x_ = 0;
@@ -15,19 +20,27 @@ typedef class Vector4D {
     this->w_ = 0;
   }
 
-  Vector4D(float x, float y, float z, float w = 0) {
+  Vector4D(Type x, Type y, Type z, Type w) {
     this->x_ = x;
     this->y_ = y;
     this->z_ = z;
     this->w_ = w;
   }
 
-  Vector4D(const Vector4D* vector_4d) {
-    x_ = vector_4d->x_;
-    y_ = vector_4d->y_;
-    z_ = vector_4d->z_;
-    w_ = vector_4d->w_;
+  void Set(Type x, Type y, Type z, Type w) {
+    this->x_ = x;
+    this->y_ = y;
+    this->z_ = z;
+    this->w_ = w;
   }
+
+  void Set(Vector4D<Type>* vector_4d) {
+    this->x_ = vector_4d->x_;
+    this->y_ = vector_4d->y_;
+    this->z_ = vector_4d->z_;
+    this->w_ = vector_4d->w_;
+  }
+
 };
 
-#endif
+#endif //VECTOR_4D_HPP

@@ -4,8 +4,7 @@
 // element_*_*_ - are named elements or entries wedlug
 // wedlug Ilustrowanego slownika matematycznego element
 
-class Matrix_3_3
-{
+class Matrix_3_3 {
 	public:
 		float element_0_0_ = 0.0F, element_0_1_ = 0.0F, element_0_2_ = 0.0F;
 		float element_1_0_ = 0.0F, element_1_1_ = 0.0F, element_1_2_ = 0.0F;
@@ -21,8 +20,7 @@ class Matrix_3_3
       return destination_matrix;
     }
 
-    static void TransposeMatrix(Matrix_3_3* matrix)
-    {
+    static void TransposeMatrix(Matrix_3_3* matrix) {
       matrix->element_0_0_ = matrix->element_0_0_; matrix->element_0_1_ = matrix->element_1_0_; matrix->element_0_2_ = matrix->element_2_0_;
       matrix->element_1_0_ = matrix->element_0_1_; matrix->element_1_1_ = matrix->element_1_1_; matrix->element_1_2_ = matrix->element_2_1_;
       matrix->element_2_0_ = matrix->element_0_2_; matrix->element_2_1_ = matrix->element_1_2_; matrix->element_2_2_ = matrix->element_2_2_;
