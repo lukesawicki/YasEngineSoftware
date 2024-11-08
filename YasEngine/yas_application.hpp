@@ -16,7 +16,7 @@ class YasApplication {
   public:
     static constexpr int kScreenWidth = 640;
     static constexpr int kScreenHeight = 480;
-    static constexpr int kFov = 80; // in Degree;
+    static constexpr int kFov = 60; // in Degree;
     static constexpr int kAspectRatio = static_cast<int>(kScreenWidth) / static_cast<int>(kScreenHeight);
 
     // int z_near_ = -10;
@@ -120,6 +120,8 @@ class YasApplication {
     void rotateTestLineInToMouseDirection();
 
     void Clean();
+
+    void EulerRotationInLocalSpace();
 
     void LocalToWorldTestBoxTransform();
 

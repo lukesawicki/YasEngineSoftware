@@ -104,6 +104,8 @@ void YasApplication::Update() {
     test_box_3d.position.y_ -= 0.05;
   }
 
+  EulerRotationInLocalSpace();
+
   LocalToWorldTestBoxTransform();
   WorldToCameraTestBoxTransform();
 
@@ -293,6 +295,20 @@ void YasApplication::Clean() {
   SDL_Quit();
 }
 
+void YasApplication::EulerRotationInLocalSpace() {
+
+  if (input_->right_) {
+    Matrix_4_4::RotationAroundX(rotation, 1.0f);
+    for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+      Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.vertices[i],
+                                     test_box_3d.rotatedvertices[i]);
+    }
+  }
+  for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+    test_box_3d.vertices[i]->Set(test_box_3d.rotatedvertices[i]);
+  }
+}
+
 void YasApplication::LocalToWorldTestBoxTransform() {
   Matrix_4_4::TranslationMatrix(local_to_world_matrix_, test_box_3d.position.x_, test_box_3d.position.y_,
                                 test_box_3d.position.z_);
@@ -301,14 +317,14 @@ void YasApplication::LocalToWorldTestBoxTransform() {
   //   test_box_3d.rotatedvertices[i]->Set(test_box_3d.vertices[i]);
   // }
 
-  if (input_->right_) {
-    Matrix_4_4::RotationAroundX(rotation, 1.0f);
-    for (int i = 0; i < test_box_3d.vertices.size(); i++) {
-      Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.rotatedvertices[i], test_box_3d.rotatedvertices[i]);
-    }
-  }
+  // if (input_->right_) {
+  //   Matrix_4_4::RotationAroundX(rotation, 1.0f);
+  //   for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+  //     Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.rotatedvertices[i], test_box_3d.rotatedvertices[i]);
+  //   }
+  // }
   for (int i = 0; i < test_box_3d.vertices.size(); i++) {
-    Matrix_4_4::MultiplyByVector4D(local_to_world_matrix_, test_box_3d.rotatedvertices[i],
+    Matrix_4_4::MultiplyByVector4D(local_to_world_matrix_, test_box_3d.vertices[i],
                                    test_box_3d.worldVertices[i]);
   }
 }
