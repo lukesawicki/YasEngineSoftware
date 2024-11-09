@@ -59,6 +59,8 @@ class YasApplication {
       bool right_;
       bool up_;
       bool down_;
+      bool forward;
+      bool backward;
       bool rotate_Counter_clockwise_;
     };
 

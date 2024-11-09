@@ -13,11 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="journal">
+      <UniqueIdentifier>{b0213fc2-69ad-415e-981a-f74a1f10bc49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="YasEngineNotes.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="yasengine_dev_journal.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="line_3d.hpp">

@@ -1,0 +1,17 @@
+2024-11-09
+I will be implementing engine iteratively, by building working game or working
+part of game.
+
+First mile stone is:
+Implementing posibility to draw 3D
+regular hexahedrons (cubes)
+and rectangular cuboids
+defined by vertices, positiion, color
+rendering pipline for that kind of simple wireframe objects
+scaling of object
+transofrming objects
+and rotating objects
+scene as simple list of objects
+camera will be attached to player
+so it will be implemented moving camera using WSAD keys and mouse.
+

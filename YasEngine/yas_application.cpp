@@ -104,6 +104,14 @@ void YasApplication::Update() {
     test_box_3d.position.y_ -= 0.05;
   }
 
+    if (input_->forward) {
+    test_box_3d.position.z_ += 0.05;
+  }
+
+  if (input_->backward) {
+    test_box_3d.position.z_ -= 0.05;
+  }
+
   EulerRotationInLocalSpace();
 
   LocalToWorldTestBoxTransform();
@@ -150,6 +158,12 @@ void YasApplication::HandleKeyboardInput() {
     case SDLK_D:
       input_->right_ = true;
       break;
+    case SDLK_UP:
+      input_->forward = true;
+      break;
+    case SDLK_DOWN:
+      input_->backward = true;
+      break;
     case SDLK_RETURN:
       ;
       break;
@@ -174,6 +188,12 @@ void YasApplication::HandleKeyboardInput() {
       break;
     case SDLK_D:
       input_->right_ = false;
+      break;
+    case SDLK_UP:
+      input_->forward = false;
+      break;
+    case SDLK_DOWN:
+      input_->backward = false;
       break;
     default:
       ;

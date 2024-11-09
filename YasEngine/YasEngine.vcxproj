@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="YasEngineNotes.txt" />
+    <Text Include="yasengine_dev_journal.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="line_3d.hpp" />
