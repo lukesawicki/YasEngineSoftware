@@ -14,7 +14,6 @@
 
 class PixelsTable;
 
-const float kPi = 3.141592F;
 const Uint8 kNumberOfColors = 4;
 const Uint8 kRgbFormat = 3;
 const Uint8 kRgbaFormat = 4;

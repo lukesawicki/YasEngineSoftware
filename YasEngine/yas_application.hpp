@@ -55,13 +55,18 @@ class YasApplication {
     unsigned int frames_ = 0.0;
 
     struct Input {
-      bool left_;
-      bool right_;
-      bool up_;
-      bool down_;
-      bool forward;
-      bool backward;
-      bool rotate_Counter_clockwise_;
+      bool left_; //  A
+      bool right_; // D
+      bool up_; // SPACE
+      bool down_; // CTRL
+      bool forward_; // W
+      bool backward_; // S
+      bool rotate_counter_clockwise_roll_;  // Q IN DEFAULT CASE IN YASENGINE AROUND Z
+      bool rotate_clockwise_roll_; // E IN DEFAULT CASE IN YASENGINE AROUND Z
+      bool rotate_down_pitch; // DOWN IN DEFAULT CASE IN YASENGINE AROUND X
+      bool rotate_up_pitch; // UP IN DEFAULT CASE IN YASENGINE AROUND X
+      bool rotate_left_yaw; // LEFT IN DEFAULT CASE IN YASENGINE AROUND Y
+      bool rotate_right_yaw;  // RIGHT IN DEFAULT CASE IN YASENGINE AROUND Y
     };
 
     struct MousePositionChangeInformation {
@@ -119,11 +124,17 @@ class YasApplication {
 
     void DrawTestStuff();
 
-    void rotateTestLineInToMouseDirection();
+    void RotateTestLineInToMouseDirection();
 
     void Clean();
 
     void EulerRotationInLocalSpace();
+
+    void EulerRotationInLocalSpaceAroundX();
+
+    void EulerRotationInLocalSpaceAroundY();
+
+    void EulerRotationInLocalSpaceAroundZ();
 
     void LocalToWorldTestBoxTransform();
 

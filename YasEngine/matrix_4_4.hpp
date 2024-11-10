@@ -1,6 +1,7 @@
 #ifndef MATRIX_4_4_HPP
 #define MATRIX_4_4_HPP
 #include<cmath>
+#include"yas_math.hpp"
 #include"vector_4d.hpp"
 
 // element_*_*_ - are named elements or entries wedlug
@@ -31,8 +32,7 @@ class Matrix_4_4 {
 		}
 
 	static void RotationAroundX(Matrix_4_4& matrix, float angle) {
-			float pi = 3.141592;
-			angle = angle * (pi/180.0);
+			angle = angle * (PI/180.0);
 			matrix.element_0_0_ = 1.0F; matrix.element_0_1_ = 0.0F;				matrix.element_0_2_ = 0.0F;				 matrix.element_0_3_ = 0.0F;
 			matrix.element_1_0_ = 0.0F; matrix.element_1_1_ = cos(angle);	matrix.element_1_2_ = -sin(angle); matrix.element_1_3_ = 0.0F;
 			matrix.element_2_0_ = 0.0F; matrix.element_2_1_ = sin(angle);	matrix.element_2_2_ = cos(angle);	 matrix.element_2_3_ = 0.0F;
@@ -40,17 +40,15 @@ class Matrix_4_4 {
 		}
 
 		static void RotationAroundY(Matrix_4_4& matrix, float angle) {
-			float pi = 3.141592;
-			angle = angle * (pi/180.0);
-			matrix.element_0_0_ = cos(angle);	 matrix.element_0_1_ = 0.0F; matrix.element_0_2_ = sin(angle); matrix.element_0_3_ = 0.1F;
-			matrix.element_1_0_ = 0.0F;				 matrix.element_1_1_ = 1.0F; matrix.element_1_2_ = 0.0F;			 matrix.element_1_3_ = 0.1F;
-			matrix.element_2_0_ = -sin(angle); matrix.element_2_1_ = 0.0F; matrix.element_2_2_ = cos(angle); matrix.element_2_3_ = 0.1F;
+			angle = angle * (PI/180.0);
+			matrix.element_0_0_ = cos(angle);	 matrix.element_0_1_ = 0.0F; matrix.element_0_2_ = sin(angle); matrix.element_0_3_ = 0.0F;
+			matrix.element_1_0_ = 0.0F;				 matrix.element_1_1_ = 1.0F; matrix.element_1_2_ = 0.0F;			 matrix.element_1_3_ = 0.0F;
+			matrix.element_2_0_ = -sin(angle); matrix.element_2_1_ = 0.0F; matrix.element_2_2_ = cos(angle); matrix.element_2_3_ = 0.0F;
 			matrix.element_3_0_ = 0.0F;				 matrix.element_3_1_ = 0.0F; matrix.element_3_2_ = 0.0F;			 matrix.element_3_3_ = 1.0F;
 		}
 
 		static void RotationAroundZ(Matrix_4_4& matrix, float angle) {
-			float pi = 3.141592;
-			angle = angle * (pi/180.0);
+			angle = angle * (PI/180.0);
 			matrix.element_0_0_ =	cos(angle); matrix.element_0_1_ = -sin(angle); matrix.element_0_2_ = 0.0F; matrix.element_0_3_ = 0.0F;
 			matrix.element_1_0_ =	sin(angle); matrix.element_1_1_ = cos(angle);	 matrix.element_1_2_ = 0.0F; matrix.element_1_3_ = 0.0F;
 			matrix.element_2_0_ =	0.0F;				matrix.element_2_1_ = 0.0F;				 matrix.element_2_2_ = 1.0F; matrix.element_2_3_ = 0.0F;
@@ -66,8 +64,7 @@ class Matrix_4_4 {
 		}
 
 		static void ProjectionMatrix(Matrix_4_4& matrix, float fov, float aspect, float zNear, float zFar) {
-			float pi = 3.141592;
-			fov = fov * (pi/180.0);
+			fov = fov * (PI/180.0);
 			float q = 1/tan(fov/2.0);
 			float a = q/aspect;
 			float b = (zNear + zFar)  / (zNear - zFar);

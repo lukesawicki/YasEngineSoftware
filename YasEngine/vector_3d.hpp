@@ -24,7 +24,7 @@ class Vector3D {
     this->z_ = z;
   }
 };
-
+typedef Vector3D<Type> vertex3D;
 typedef Vector3D<float> vertex3Df;
 typedef Vector3D<int> vertex3Di;
 

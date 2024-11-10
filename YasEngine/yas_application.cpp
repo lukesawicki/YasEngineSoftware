@@ -96,6 +96,14 @@ void YasApplication::PrepareTestStuff() {
 void YasApplication::Update() {
   HandleTestStuff();
 
+  if (input_->left_) {
+    test_box_3d.position.x_ -= 0.05;
+  }
+
+  if (input_->right_) {
+    test_box_3d.position.x_ += 0.05;
+  }
+
   if (input_->up_) {
     test_box_3d.position.y_ += 0.05;
   }
@@ -104,12 +112,12 @@ void YasApplication::Update() {
     test_box_3d.position.y_ -= 0.05;
   }
 
-    if (input_->forward) {
-    test_box_3d.position.z_ += 0.05;
+    if (input_->forward_) {
+    test_box_3d.position.z_ -= 0.05;
   }
 
-  if (input_->backward) {
-    test_box_3d.position.z_ -= 0.05;
+  if (input_->backward_) {
+    test_box_3d.position.z_ += 0.05;
   }
 
   EulerRotationInLocalSpace();
@@ -123,7 +131,7 @@ void YasApplication::Update() {
 
 void YasApplication::HandleTestStuff() {
   if (mouse_position_change_information_->mouse_moved_) {
-    rotateTestLineInToMouseDirection();
+    RotateTestLineInToMouseDirection();
   }
 }
 
@@ -141,16 +149,13 @@ void YasApplication::HandleKeyboardInput() {
   if (event_.type == SDL_EVENT_KEY_DOWN) {
     switch (event_.key.key) {
     case SDLK_ESCAPE:
-      quit_ = true;;
-      break;
-    case SDLK_SPACE:
-      ;
+      quit_ = true;
       break;
     case SDLK_W:
-      input_->up_ = true;
+      input_->forward_ = true;
       break;
     case SDLK_S:
-      input_->down_ = true;
+      input_->backward_ = true;
       break;
     case SDLK_A:
       input_->left_ = true;
@@ -158,11 +163,29 @@ void YasApplication::HandleKeyboardInput() {
     case SDLK_D:
       input_->right_ = true;
       break;
+    case SDLK_Q:
+      input_->rotate_counter_clockwise_roll_ = true;
+      break;
+    case SDLK_E:
+      input_->rotate_clockwise_roll_ = true;
+      break;
     case SDLK_UP:
-      input_->forward = true;
+      input_->rotate_up_pitch = true;
       break;
     case SDLK_DOWN:
-      input_->backward = true;
+      input_->rotate_down_pitch = true;
+      break;
+    case SDLK_LEFT:
+      input_->rotate_left_yaw = true;
+      break;
+    case SDLK_RIGHT:
+      input_->rotate_right_yaw = true;
+      break;
+    case SDLK_SPACE:
+      input_->up_ = true;
+      break;
+    case SDLK_LCTRL:
+      input_->down_ = true;
       break;
     case SDLK_RETURN:
       ;
@@ -177,24 +200,42 @@ void YasApplication::HandleKeyboardInput() {
 
   if (event_.type == SDL_EVENT_KEY_UP) {
     switch (event_.key.key) {
-    case SDLK_W:
-      input_->up_ = false;
-      break;
-    case SDLK_S:
-      input_->down_ = false;
-      break;
-    case SDLK_A:
-      input_->left_ = false;
-      break;
-    case SDLK_D:
-      input_->right_ = false;
-      break;
-    case SDLK_UP:
-      input_->forward = false;
-      break;
-    case SDLK_DOWN:
-      input_->backward = false;
-      break;
+      case SDLK_W:
+        input_->forward_ = false;
+        break;
+      case SDLK_S:
+        input_->backward_ = false;
+        break;
+      case SDLK_A:
+        input_->left_ = false;
+        break;
+      case SDLK_D:
+        input_->right_ = false;
+        break;
+      case SDLK_Q:
+        input_->rotate_counter_clockwise_roll_ = false;
+        break;
+      case SDLK_E:
+        input_->rotate_clockwise_roll_ = false;
+        break;
+      case SDLK_UP:
+        input_->rotate_up_pitch = false;
+        break;
+      case SDLK_DOWN:
+        input_->rotate_down_pitch = false;
+        break;
+      case SDLK_LEFT:
+        input_->rotate_left_yaw = false;
+        break;
+      case SDLK_RIGHT:
+        input_->rotate_right_yaw = false;
+        break;
+      case SDLK_SPACE:
+        input_->up_ = false;
+        break;
+      case SDLK_LCTRL:
+        input_->down_ = false;
+        break;
     default:
       ;
     }
@@ -258,7 +299,7 @@ void YasApplication::DrawTestStuff() {
            kRed);
 }
 
-void YasApplication::rotateTestLineInToMouseDirection() {
+void YasApplication::RotateTestLineInToMouseDirection() {
   Vector2D<float> currentMousePosition = Vector2D<float>(
     mouse_x_position_, mouse_y_position_);
 
@@ -316,14 +357,72 @@ void YasApplication::Clean() {
 }
 
 void YasApplication::EulerRotationInLocalSpace() {
+  EulerRotationInLocalSpaceAroundX();
+  EulerRotationInLocalSpaceAroundY();
+  EulerRotationInLocalSpaceAroundZ();
+}
 
-  if (input_->right_) {
+void YasApplication::EulerRotationInLocalSpaceAroundX() {
+  if (input_->rotate_down_pitch) {
     Matrix_4_4::RotationAroundX(rotation, 1.0f);
     for (int i = 0; i < test_box_3d.vertices.size(); i++) {
       Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.vertices[i],
                                      test_box_3d.rotatedvertices[i]);
     }
   }
+
+  if (input_->rotate_up_pitch) {
+    Matrix_4_4::RotationAroundX(rotation, -1.0f);
+    for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+      Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.vertices[i],
+                                     test_box_3d.rotatedvertices[i]);
+    }
+  }
+
+  for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+    test_box_3d.vertices[i]->Set(test_box_3d.rotatedvertices[i]);
+  }
+}
+
+void YasApplication::EulerRotationInLocalSpaceAroundY() {
+  if (input_->rotate_left_yaw) {
+    Matrix_4_4::RotationAroundY(rotation, 1.0f);
+    for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+      Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.vertices[i],
+                                     test_box_3d.rotatedvertices[i]);
+    }
+  }
+
+  if (input_->rotate_right_yaw) {
+    Matrix_4_4::RotationAroundY(rotation, -1.0f);
+    for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+      Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.vertices[i],
+                                     test_box_3d.rotatedvertices[i]);
+    }
+  }
+
+  for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+    test_box_3d.vertices[i]->Set(test_box_3d.rotatedvertices[i]);
+  }
+}
+
+void YasApplication::EulerRotationInLocalSpaceAroundZ() {
+  if (input_->rotate_counter_clockwise_roll_) {
+    Matrix_4_4::RotationAroundZ(rotation, 1.0f);
+    for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+      Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.vertices[i],
+                                     test_box_3d.rotatedvertices[i]);
+    }
+  }
+
+  if (input_->rotate_clockwise_roll_) {
+    Matrix_4_4::RotationAroundZ(rotation, -1.0f);
+    for (int i = 0; i < test_box_3d.vertices.size(); i++) {
+      Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.vertices[i],
+                                     test_box_3d.rotatedvertices[i]);
+    }
+  }
+
   for (int i = 0; i < test_box_3d.vertices.size(); i++) {
     test_box_3d.vertices[i]->Set(test_box_3d.rotatedvertices[i]);
   }

@@ -139,17 +139,8 @@
     <Text Include="yasengine_dev_journal.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="line_3d.hpp" />
-    <ClInclude Include="matrix_1_2.hpp" />
-    <ClInclude Include="matrix_1_3.hpp" />
-    <ClInclude Include="matrix_1_4.hpp" />
-    <ClInclude Include="matrix_2_2.hpp" />
-    <ClInclude Include="matrix_3_2.hpp" />
-    <ClInclude Include="matrix_3_3.hpp" />
-    <ClInclude Include="matrix_4_3.hpp" />
     <ClInclude Include="matrix_4_4.hpp" />
     <ClInclude Include="pixels_table.hpp" />
-    <ClInclude Include="point_3d.hpp" />
     <ClInclude Include="polygon_2d.hpp" />
     <ClInclude Include="projector.hpp" />
     <ClInclude Include="renderer.hpp" />
@@ -159,6 +150,7 @@
     <ClInclude Include="vector_3d.hpp" />
     <ClInclude Include="vector_4d.hpp" />
     <ClInclude Include="yas_application.hpp" />
+    <ClInclude Include="yas_math.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

@@ -24,37 +24,10 @@
     <Text Include="yasengine_dev_journal.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="line_3d.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_1_2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_1_3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_1_4.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_2_2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_3_2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_3_3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_4_3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="matrix_4_4.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pixels_table.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="point_3d.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="polygon_2d.hpp">
@@ -82,6 +55,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="yas_application.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="yas_math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
