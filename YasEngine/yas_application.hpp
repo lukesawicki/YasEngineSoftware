@@ -61,10 +61,16 @@ class YasApplication {
       bool down_; // CTRL
       bool forward_; // W
       bool backward_; // S
+
+      // PL -> Przechylenie
       bool rotate_counter_clockwise_roll_;  // Q IN DEFAULT CASE IN YASENGINE AROUND Z
       bool rotate_clockwise_roll_; // E IN DEFAULT CASE IN YASENGINE AROUND Z
+
+      // PL -> Pochylenie
       bool rotate_down_pitch; // DOWN IN DEFAULT CASE IN YASENGINE AROUND X
       bool rotate_up_pitch; // UP IN DEFAULT CASE IN YASENGINE AROUND X
+
+      // PL -> Odchylenie
       bool rotate_left_yaw; // LEFT IN DEFAULT CASE IN YASENGINE AROUND Y
       bool rotate_right_yaw;  // RIGHT IN DEFAULT CASE IN YASENGINE AROUND Y
     };

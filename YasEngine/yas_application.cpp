@@ -364,7 +364,7 @@ void YasApplication::EulerRotationInLocalSpace() {
 
 void YasApplication::EulerRotationInLocalSpaceAroundX() {
   if (input_->rotate_down_pitch) {
-    Matrix_4_4::RotationAroundX(rotation, 1.0f);
+    Matrix_4_4::RotationAroundX(rotation, -1.0f);
     for (int i = 0; i < test_box_3d.vertices.size(); i++) {
       Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.vertices[i],
                                      test_box_3d.rotatedvertices[i]);
@@ -372,7 +372,7 @@ void YasApplication::EulerRotationInLocalSpaceAroundX() {
   }
 
   if (input_->rotate_up_pitch) {
-    Matrix_4_4::RotationAroundX(rotation, -1.0f);
+    Matrix_4_4::RotationAroundX(rotation, 1.0f);
     for (int i = 0; i < test_box_3d.vertices.size(); i++) {
       Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.vertices[i],
                                      test_box_3d.rotatedvertices[i]);
@@ -431,17 +431,6 @@ void YasApplication::EulerRotationInLocalSpaceAroundZ() {
 void YasApplication::LocalToWorldTestBoxTransform() {
   Matrix_4_4::TranslationMatrix(local_to_world_matrix_, test_box_3d.position.x_, test_box_3d.position.y_,
                                 test_box_3d.position.z_);
-
-  // for (int i = 0; i < test_box_3d.vertices.size(); i++) {
-  //   test_box_3d.rotatedvertices[i]->Set(test_box_3d.vertices[i]);
-  // }
-
-  // if (input_->right_) {
-  //   Matrix_4_4::RotationAroundX(rotation, 1.0f);
-  //   for (int i = 0; i < test_box_3d.vertices.size(); i++) {
-  //     Matrix_4_4::MultiplyByVector4D(rotation, test_box_3d.rotatedvertices[i], test_box_3d.rotatedvertices[i]);
-  //   }
-  // }
   for (int i = 0; i < test_box_3d.vertices.size(); i++) {
     Matrix_4_4::MultiplyByVector4D(local_to_world_matrix_, test_box_3d.vertices[i],
                                    test_box_3d.worldVertices[i]);
@@ -451,8 +440,6 @@ void YasApplication::LocalToWorldTestBoxTransform() {
 void YasApplication::WorldToCameraTestBoxTransform() {
   Matrix_4_4::TranslationMatrix(world_to_camera_matrix_, -camera_position_->x_, -camera_position_->y_,
                                 -camera_position_->z_);
-  // world_to_camera_matrix_.element_1_1_ = -1;
-  // world_to_camera_matrix_.element_2_2_ = 1;
   for (int i = 0; i < test_box_3d.vertices.size(); i++) {
     Matrix_4_4::MultiplyByVector4D(world_to_camera_matrix_, test_box_3d.worldVertices[i],
                                    test_box_3d.cameraVertices[i]);
