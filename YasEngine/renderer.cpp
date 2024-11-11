@@ -1,8 +1,3 @@
-//
-// Created by lukesawicki on 9/21/24.
-//
-
-#include <bitset>
 #include "renderer.hpp"
 
 void DrawLine(const Vector2D<float> &point_0, const Vector2D<float> &point_1,

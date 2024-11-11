@@ -1,7 +1,3 @@
-//
-// Created by lukesawicki on 9/21/24.
-//
-
 #ifndef VECTOR_4D_HPP
 #define VECTOR_4D_HPP
 

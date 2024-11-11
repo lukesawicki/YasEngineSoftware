@@ -39,7 +39,7 @@
     <ClInclude Include="renderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test_box_3d.hpp">
+    <ClInclude Include="object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="time_picker.hpp">
@@ -58,6 +58,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="yas_math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

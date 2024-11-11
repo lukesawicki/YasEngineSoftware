@@ -1,7 +1,3 @@
-//
-// Created by lukesawicki on 9/29/24.
-//
-
 #ifndef POLYGON_2D_HPP
 #define POLYGON_2D_HPP
 #include <SDL2/SDL_stdinc.h>

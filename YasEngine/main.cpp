@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "yas_application.hpp"
 
 int main(int argc, char* argv[]) {

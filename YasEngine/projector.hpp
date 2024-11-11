@@ -1,7 +1,3 @@
-//
-// Created by lukesawicki on 10/13/24.
-//
-
 #ifndef PROJECTOR_HPP
 #define PROJECTOR_HPP
 #include "matrix_4_4.hpp"
@@ -31,7 +27,7 @@ class Projector {
     Matrix_4_4::WorldToCameraMatrix(worldToCameraMatrix_, camera_position_x_, camera_position_y_, camera_position_z_);
 
   }
-  ModifyBoxVertices(TestBox3D& box) {
+  ModifyBoxVertices(Object& box) {
 
   }
 

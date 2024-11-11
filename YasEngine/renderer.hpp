@@ -1,7 +1,3 @@
-//
-// Created by lukesawicki on 9/21/24.
-//
-
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 

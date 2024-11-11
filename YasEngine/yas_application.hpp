@@ -1,29 +1,26 @@
-//
-// Created by lukesawicki on 9/21/24.
-//
-
 #ifndef YAS_APPLICATION_HPP
 #define YAS_APPLICATION_HPP
 
 #include <SDL.h>
 
+#include "camera.hpp"
 #include "matrix_4_4.hpp"
 #include "pixels_table.hpp"
-#include "test_box_3d.hpp"
+#include "object.hpp"
 #include "time_picker.hpp"
 
 class YasApplication {
   public:
     static constexpr int kScreenWidth = 640;
-    static constexpr int kScreenHeight = 480;
-    static constexpr int kFov = 60; // in Degree;
+   static constexpr int kScreenHeight = 480;
+    static constexpr int kFov = 90; // in Degree;
     static constexpr int kAspectRatio = static_cast<int>(kScreenWidth) / static_cast<int>(kScreenHeight);
 
     // int z_near_ = -10;
     // int z_far_ = -200;
 
     int z_near_ = 0.1f;
-    int z_far_ = 100;
+    int z_far_ = 1000;
 
     static YasApplication *GetInstance() {
       if (instance_ != nullptr) {
@@ -73,6 +70,30 @@ class YasApplication {
       // PL -> Odchylenie
       bool rotate_left_yaw; // LEFT IN DEFAULT CASE IN YASENGINE AROUND Y
       bool rotate_right_yaw;  // RIGHT IN DEFAULT CASE IN YASENGINE AROUND Y
+
+
+      // CAMERA
+
+      bool camera_left_;      // f
+      bool camera_right_;     // h
+      bool camera_up_;        // m
+      bool camera_down_;      // n
+      bool camera_forward_;   // t
+      bool camera_backward_;  // g
+
+      // PL -> Przechylenie
+      bool camera_rotate_counter_clockwise_roll_;  // r IN DEFAULT CASE IN
+                                                   // YASENGINE AROUND Z
+      bool camera_rotate_clockwise_roll_;  // y IN DEFAULT CASE IN YASENGINE
+                                           // AROUND Z
+
+      // PL -> Pochylenie
+      bool camera_rotate_down_pitch;  // k IN DEFAULT CASE IN YASENGINE AROUND X
+      bool camera_rotate_up_pitch;    // i IN DEFAULT CASE IN YASENGINE AROUND X
+
+      // PL -> Odchylenie
+      bool camera_rotate_left_yaw;   // j IN DEFAULT CASE IN YASENGINE AROUND Y
+      bool camera_rotate_right_yaw;  // l IN DEFAULT CASE IN YASENGINE AROUND Y
     };
 
     struct MousePositionChangeInformation {
@@ -83,12 +104,14 @@ class YasApplication {
       bool right_mouse_button_;
     };
 
-    Vector4D<float>* camera_position_;
+    //Vector4D<float>* camera_position_;
+    Camera camera_;
 
     Matrix_4_4 local_to_world_matrix_;
     Matrix_4_4 world_to_camera_matrix_;
     Matrix_4_4 world_to_projected_world_matrix_;
     Matrix_4_4 rotation;
+    Matrix_4_4 camera_rotation;
 
     Input* input_ = new Input();
     MousePositionChangeInformation* mouse_position_change_information_ = new MousePositionChangeInformation();
@@ -100,7 +123,7 @@ class YasApplication {
     Vector2D<float> test_static_line_point_0;
     Vector2D<float> test_static_line_point_1;
 
-    TestBox3D test_box_3d;
+    Object test_box_3d;
 
     void CheckEndianness();
 
@@ -115,6 +138,8 @@ class YasApplication {
     void Update();
 
     void HandleTestStuff();
+
+    void HandleCameraMoving();
 
     void HandleInput();
 
@@ -144,7 +169,15 @@ class YasApplication {
 
     void LocalToWorldTestBoxTransform();
 
-    void WorldToCameraTestBoxTransform();
+    void WorldToCameraTranslationTestBoxTransform();
+
+    void EulerCameraRotationAroundX();
+
+    void EulerCameraRotationAroundY();
+
+    void EulerCameraRotationAroundZ();
+
+    void WorldToCameraRotationTestBoxTransform();
 
     void PerspectiveProjectionTestBoxProcess();
 

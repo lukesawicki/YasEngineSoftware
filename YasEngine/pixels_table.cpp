@@ -1,7 +1,3 @@
-//
-// Created by lukesawicki on 9/21/24.
-//
-
 #include "pixels_table.hpp"
 #include <SDL.h>
 #include "renderer.hpp"

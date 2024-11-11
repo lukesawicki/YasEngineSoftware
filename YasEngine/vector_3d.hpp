@@ -1,7 +1,3 @@
-//
-// Created by lukesawicki on 9/29/24.
-//
-
 #ifndef VECTOR_3D_HPP
 #define VECTOR_3D_HPP
 
@@ -23,9 +19,16 @@ class Vector3D {
     this->y_ = y;
     this->z_ = z;
   }
+
+    void Set(Type x, Type y, Type z) {
+    this->x_ = x;
+    this->y_ = y;
+    this->z_ = z;
+  }
+
 };
-typedef Vector3D<Type> vertex3D;
-typedef Vector3D<float> vertex3Df;
-typedef Vector3D<int> vertex3Di;
+
+// typedef Vector3D<float> vertex3Df;
+// typedef Vector3D<int> vertex3Di;
 
 #endif //VECTOR_3D_HPP

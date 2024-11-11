@@ -58,7 +58,7 @@ class Matrix_4_4 {
 		// 	Matrix_4_4::ChangeMatrixToIdentity(matrix);
 		// }
 
-		//moves vertices from
+		//moves vertices_ from
 		static void WorldToCameraMatrix (Matrix_4_4& matrix, float x, float y, float z) {
 			TranslationMatrix(matrix, -x, -y, -z);
 		}
@@ -82,6 +82,16 @@ class Matrix_4_4 {
 			result->z_ = matrix_0.element_2_0_ * source_vector_4d->x_ + matrix_0.element_2_1_ * source_vector_4d->y_ + matrix_0.element_2_2_ * source_vector_4d->z_ + matrix_0.element_2_3_ * source_vector_4d->w_;
 			result->w_ = matrix_0.element_3_0_ * source_vector_4d->x_ + matrix_0.element_3_1_ * source_vector_4d->y_ + matrix_0.element_3_2_ * source_vector_4d->z_ + matrix_0.element_3_3_ * source_vector_4d->w_;
 
+		}
+
+		static void MultiplyByVector4D_V2(const Matrix_4_4& matrix_0, const Vector4D<float>* source_vector_4d, Vector4D<float>* result) {
+      Vector4D<float>* newRotated = new Vector4D<float>();
+			newRotated->x_ = matrix_0.element_0_0_ * source_vector_4d->x_ + matrix_0.element_0_1_ * source_vector_4d->y_ + matrix_0.element_0_2_ * source_vector_4d->z_ + matrix_0.element_0_3_ * source_vector_4d->w_;
+			newRotated->y_ = matrix_0.element_1_0_ * source_vector_4d->x_ + matrix_0.element_1_1_ * source_vector_4d->y_ + matrix_0.element_1_2_ * source_vector_4d->z_ + matrix_0.element_1_3_ * source_vector_4d->w_;
+			newRotated->z_ = matrix_0.element_2_0_ * source_vector_4d->x_ + matrix_0.element_2_1_ * source_vector_4d->y_ + matrix_0.element_2_2_ * source_vector_4d->z_ + matrix_0.element_2_3_ * source_vector_4d->w_;
+			newRotated->w_ = matrix_0.element_3_0_ * source_vector_4d->x_ + matrix_0.element_3_1_ * source_vector_4d->y_ + matrix_0.element_3_2_ * source_vector_4d->z_ + matrix_0.element_3_3_ * source_vector_4d->w_;
+      result->Set(newRotated);
+      delete newRotated;
 		}
 
 		static void ClearOutMatrix(Matrix_4_4& matrix) {

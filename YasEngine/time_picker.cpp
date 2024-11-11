@@ -1,7 +1,3 @@
-//
-// Created by lukesawicki on 9/22/24.
-//
-
 #include "time_picker.hpp"
 #include <SDL.h>
 

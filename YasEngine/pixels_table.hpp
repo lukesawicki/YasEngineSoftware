@@ -1,7 +1,3 @@
-//
-// Created by lukesawicki on 9/21/24.
-//
-
 #ifndef PIXELS_TABLE_HPP
 #define PIXELS_TABLE_HPP
 
