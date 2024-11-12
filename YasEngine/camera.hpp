@@ -7,9 +7,9 @@
 class Camera {
  public:
   Vector4D<float> position_;
-  Vector3D<float> angle_x_;
-  Vector3D<float> angle_y_;
-  Vector3D<float> angle_z_;
+  float angle_x_;
+  float angle_y_;
+  float angle_z_;
   Camera() { position_.Set(0.0F, 0.0F, 0.0F, 1.0F);
   }
 };

@@ -111,7 +111,9 @@ class YasApplication {
     Matrix_4_4 world_to_camera_matrix_;
     Matrix_4_4 world_to_projected_world_matrix_;
     Matrix_4_4 rotation;
-    Matrix_4_4 camera_rotation;
+    Matrix_4_4 camera_rotation_around_x_;
+    Matrix_4_4 camera_rotation_around_y_;
+    Matrix_4_4 camera_rotation_around_z_;
 
     Input* input_ = new Input();
     MousePositionChangeInformation* mouse_position_change_information_ = new MousePositionChangeInformation();

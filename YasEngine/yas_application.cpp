@@ -118,8 +118,37 @@ void YasApplication::Update() {
 
   HandleCameraMoving();
 
-  EulerRotationInLocalSpace();
+  if (input_->camera_rotate_down_pitch) {
+    camera_.angle_x_ -= 1.0F;
+  }
 
+  if (input_->camera_rotate_up_pitch) {
+    camera_.angle_x_ += 1.0F;
+  }
+
+
+
+  if (input_->camera_rotate_left_yaw) {
+    camera_.angle_y_ -= 1.0F;
+  }
+
+  if (input_->camera_rotate_right_yaw) {
+    camera_.angle_y_ += 1.0F;
+  }
+
+
+
+  if (input_->camera_rotate_counter_clockwise_roll_) {
+    camera_.angle_z_ -= 1.0F;
+  }
+
+  if (input_->camera_rotate_clockwise_roll_) {
+    camera_.angle_z_ += 1.0F;
+  }
+
+
+
+  EulerRotationInLocalSpace();
 
   LocalToWorldTestBoxTransform();
   WorldToCameraTranslationTestBoxTransform();
@@ -547,87 +576,54 @@ void YasApplication::WorldToCameraTranslationTestBoxTransform() {
 }
 ///////////////////////////////////////////////////////////////////////////////
 void YasApplication::EulerCameraRotationAroundX() {
-  if (input_->camera_rotate_down_pitch) {
+
     // TUTAJ ZMIENIC ZE JEST NIE -1.0f A JEST KAT OBROTU KAMERY Z OBIEKTU KAMERA
-    Matrix_4_4::RotationAroundX(camera_rotation, -1.0f);
+    Matrix_4_4::RotationAroundX(camera_rotation_around_x_, camera_.angle_x_);
     for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
       Matrix_4_4::MultiplyByVector4D_V2(
-          camera_rotation,
-          test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i],
+          camera_rotation_around_x_,
+          test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i],
           test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
           // test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]);
     }
-  }
-
-  if (input_->camera_rotate_up_pitch) {
-    Matrix_4_4::RotationAroundX(camera_rotation, 1.0f);
+  
     for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
-      Matrix_4_4::MultiplyByVector4D_V2(
-          camera_rotation,
-          test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i],
-          test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
-          // test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]);
-    }
+    test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]->Set(
+        test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
   }
-
 }
 
 void YasApplication::EulerCameraRotationAroundY() {
-  if (input_->camera_rotate_left_yaw) {
-    Matrix_4_4::RotationAroundY(camera_rotation, 1.0f);
+  
+    Matrix_4_4::RotationAroundY(camera_rotation_around_y_, camera_.angle_y_);
     for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
       Matrix_4_4::MultiplyByVector4D_V2(
-          camera_rotation,
-          test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i],
+          camera_rotation_around_y_,
+          test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i],
           test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
           // test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]);
     }
-  }
 
-  if (input_->camera_rotate_right_yaw) {
-    Matrix_4_4::RotationAroundY(camera_rotation, -1.0f);
-    for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
-      Matrix_4_4::MultiplyByVector4D_V2(
-          camera_rotation,
-          test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i],
-          test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
-          // test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]);
-    }
+  for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
+    test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]->Set(
+        test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
   }
-
-  // for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
-  //   test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]->Set(
-  //       test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
-  // }
 }
 
 void YasApplication::EulerCameraRotationAroundZ() {
-  if (input_->camera_rotate_counter_clockwise_roll_) {
-    Matrix_4_4::RotationAroundZ(camera_rotation, 1.0f);
+    Matrix_4_4::RotationAroundZ(camera_rotation_around_z_, camera_.angle_z_);
     for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
       Matrix_4_4::MultiplyByVector4D_V2(
-          camera_rotation,
-          test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i],
+          camera_rotation_around_z_,
+          test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i],
           test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
           // test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]);
     }
-  }
 
-  if (input_->camera_rotate_clockwise_roll_) {
-    Matrix_4_4::RotationAroundZ(camera_rotation, -1.0f);
-    for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
-      Matrix_4_4::MultiplyByVector4D_V2(
-          camera_rotation,
-          test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i],
-          test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
-          // test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]);
-    }
+  for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
+    test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]->Set(
+        test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
   }
-
-  // for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
-  //   test_box_3d.translated_as_a_result_of_camera_translation_vertices_[i]->Set(
-  //       test_box_3d.rotated_as_a_result_of_camera_rotation_vertices_[i]);
-  // }
 }
 ///////////////////////////////////////////////////////////////////////////////
 void YasApplication::WorldToCameraRotationTestBoxTransform() {
