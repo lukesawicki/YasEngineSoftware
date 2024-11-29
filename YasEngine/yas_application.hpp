@@ -186,6 +186,11 @@ class YasApplication {
     void Set2dVerticesForTestBox();
 
     void DrawBoxOnScreen();
+
+    void DrawNumbersAsGroupOfLines(
+        const std::vector<Vector2D<float> *> &vertices,
+                                   const Vector4D<Uint8> &color,
+                                   bool are_lines_continuous);
 };
 
 #endif //YAS_APPLICATION_HPP

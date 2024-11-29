@@ -659,18 +659,36 @@ void YasApplication::Set2dVerticesForTestBox() {
 }
 
 void YasApplication::DrawBoxOnScreen() {
-  DrawLineV1(*test_box_3d.vertices_in_2d_[0], *test_box_3d.vertices_in_2d_[1], *pixels_table_, kYellow);
-  DrawLineV1(*test_box_3d.vertices_in_2d_[1], *test_box_3d.vertices_in_2d_[2], *pixels_table_, kYellow);
-  DrawLineV1(*test_box_3d.vertices_in_2d_[2], *test_box_3d.vertices_in_2d_[3], *pixels_table_, kYellow);
-  DrawLineV1(*test_box_3d.vertices_in_2d_[3], *test_box_3d.vertices_in_2d_[0], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[0], *test_box_3d.vertices_in_2d_[1], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[1], *test_box_3d.vertices_in_2d_[2], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[2], *test_box_3d.vertices_in_2d_[3], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[3], *test_box_3d.vertices_in_2d_[0], *pixels_table_, kYellow);
+  //
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[4], *test_box_3d.vertices_in_2d_[5], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[5], *test_box_3d.vertices_in_2d_[6], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[6], *test_box_3d.vertices_in_2d_[7], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[7], *test_box_3d.vertices_in_2d_[4], *pixels_table_, kYellow);
+  //
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[5], *test_box_3d.vertices_in_2d_[0], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[6], *test_box_3d.vertices_in_2d_[1], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[7], *test_box_3d.vertices_in_2d_[2], *pixels_table_, kYellow);
+  // DrawLineV1(*test_box_3d.vertices_in_2d_[4], *test_box_3d.vertices_in_2d_[3], *pixels_table_, kYellow);
+  DrawNumbersAsGroupOfLines(test_box_3d.vertices_in_2d_, kYellow, false);
+}
 
-  DrawLineV1(*test_box_3d.vertices_in_2d_[4], *test_box_3d.vertices_in_2d_[5], *pixels_table_, kYellow);
-  DrawLineV1(*test_box_3d.vertices_in_2d_[5], *test_box_3d.vertices_in_2d_[6], *pixels_table_, kYellow);
-  DrawLineV1(*test_box_3d.vertices_in_2d_[6], *test_box_3d.vertices_in_2d_[7], *pixels_table_, kYellow);
-  DrawLineV1(*test_box_3d.vertices_in_2d_[7], *test_box_3d.vertices_in_2d_[4], *pixels_table_, kYellow);
-
-  DrawLineV1(*test_box_3d.vertices_in_2d_[5], *test_box_3d.vertices_in_2d_[0], *pixels_table_, kYellow);
-  DrawLineV1(*test_box_3d.vertices_in_2d_[6], *test_box_3d.vertices_in_2d_[1], *pixels_table_, kYellow);
-  DrawLineV1(*test_box_3d.vertices_in_2d_[7], *test_box_3d.vertices_in_2d_[2], *pixels_table_, kYellow);
-  DrawLineV1(*test_box_3d.vertices_in_2d_[4], *test_box_3d.vertices_in_2d_[3], *pixels_table_, kYellow);
+void YasApplication::DrawNumbersAsGroupOfLines(const std::vector<Vector2D<float>*> &vertices,
+  const Vector4D<Uint8>& color, bool are_lines_continuous) {
+  int step = 1;
+  if (!are_lines_continuous) {
+    step = 2;
+  }
+  if (vertices.size() > 1) {
+    if (vertices.size() <= 3) {
+      DrawLineV1(*vertices[0], *vertices[1], *pixels_table_, color);
+    } else {
+      for (int i = 0; i < vertices.size() - 1; i += step) {
+        DrawLineV1(*vertices[i], *vertices[i + 1], *pixels_table_, color);
+      }
+    }
+  }
 }
