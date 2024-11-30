@@ -23,7 +23,7 @@ class Object {
 
   std::vector<Vector2D<float>*> vertices_in_2d_;
   std::vector<Vector4D<float>*> resultVertices_;
-  DODAC LISTE INDEKSOW TROJKATOW ONE MAJA SIE ODNOSIC DO resultVertices_
+  // DODAC LISTE INDEKSOW TROJKATOW ONE MAJA SIE ODNOSIC DO resultVertices_
   Object() {
     // vertices_ = new Vector4D<float>*[8];
     vertices_.push_back(new Vector4D<float>(-20, 20, 20, 1));

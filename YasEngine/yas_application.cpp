@@ -36,7 +36,7 @@ void YasApplication::CheckEndianness() {
 void YasApplication::PrepareBasicSettings() {
   CheckEndianness();
 
-  if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_EVENTS | SDL_INIT_AUDIO |
+  if (SDL_Init( SDL_INIT_EVENTS | SDL_INIT_AUDIO |
     SDL_INIT_VIDEO) != 0) {
     std::cout << "SDL_Init failed with error: " << SDL_GetError() << std::endl;
   }
@@ -47,8 +47,8 @@ void YasApplication::PrepareBasicSettings() {
   SDL_DisplayID display_id = SDL_GetPrimaryDisplay();
   const SDL_DisplayMode* display_mode = SDL_GetCurrentDisplayMode(display_id);
 
-  Uint32 windowFlags = SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_BORDERLESS | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_RESIZABLE |
-    SDL_WINDOW_OPENGL; // SDL_WINDOW_ALWAYS_ON_TOP
+  Uint32 windowFlags = SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_RESIZABLE |
+    SDL_WINDOW_OPENGL; // SDL_WINDOW_ALWAYS_ON_TOP // SDL_WINDOW_BORDERLESS
 
   window_ =
       SDL_CreateWindow("YasEngine", kScreenWidth, kScreenHeight, windowFlags);
@@ -61,8 +61,7 @@ void YasApplication::PrepareRenderingSettings() {
   pixels_table_ = new PixelsTable(kScreenWidth, kScreenHeight, kBlack);
   sdl_renderer_ = SDL_CreateRenderer(window_, NULL);
   SDL_SetRenderLogicalPresentation(sdl_renderer_, kScreenWidth, kScreenHeight,
-                                   SDL_LOGICAL_PRESENTATION_DISABLED,
-                                   SDL_SCALEMODE_NEAREST);
+                                   SDL_LOGICAL_PRESENTATION_DISABLED);
 
   screen_texture_ = SDL_CreateTexture(sdl_renderer_, SDL_PIXELFORMAT_RGBX32,
                                       SDL_TEXTUREACCESS_STREAMING, kScreenWidth,
@@ -119,11 +118,11 @@ void YasApplication::Update() {
   HandleCameraMoving();
 
   if (input_->camera_rotate_down_pitch) {
-    camera_.angle_x_ -= 1.0F;
+    camera_.angle_x_ += 1.0F;
   }
 
   if (input_->camera_rotate_up_pitch) {
-    camera_.angle_x_ += 1.0F;
+    camera_.angle_x_ -= 1.0F;
   }
 
 
