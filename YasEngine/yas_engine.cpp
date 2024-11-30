@@ -138,8 +138,7 @@ void YasEngine::PrepareRendering() {
   pixels_table_ = new PixelsTable(window_width_, window_height_, kBlack);
   renderer_ = SDL_CreateRenderer(window_, NULL);
   SDL_SetRenderLogicalPresentation(renderer_, window_width_, window_height_,
-                                   SDL_LOGICAL_PRESENTATION_DISABLED,
-                                   SDL_SCALEMODE_NEAREST);
+                                   SDL_LOGICAL_PRESENTATION_DISABLED);
   screen_texture_ = SDL_CreateTexture(renderer_, SDL_PIXELFORMAT_RGBX32,
                                       SDL_TEXTUREACCESS_STREAMING,
                                       window_width_, window_height_);
@@ -148,7 +147,7 @@ void YasEngine::PrepareRendering() {
 void YasEngine::PrepareBasicSettings() {
   CheckEndianness();
 
-  SDL_Init(SDL_INIT_TIMER | SDL_INIT_EVENTS | SDL_INIT_AUDIO | SDL_INIT_VIDEO);
+  SDL_Init(SDL_INIT_EVENTS | SDL_INIT_AUDIO | SDL_INIT_VIDEO);
 
       // Get the number of displays available
   SDL_DisplayID display_id = SDL_GetPrimaryDisplay();
@@ -1077,8 +1076,7 @@ void YasEngine::PrepareSoundAndMusic() {
   music_ = Mix_LoadMUS("music.wav");
   if (music_ == NULL) {
     std::cout << "Error while loading music_. Cannot load music." << std::endl;
-    std::cout << "SDL message: " << SDL_GetError() << std::endl
-      << " | Mix library error: " << Mix_GetError() << std::endl;
+    std::cout << "ERROR messages: " << SDL_GetError() << std::endl;
     quit_ = true;
   }
 
@@ -1095,8 +1093,7 @@ void YasEngine::PrepareSoundAndMusic() {
 
   if (shoot_sound_ == NULL || hit_sound_ == NULL || other_sound_ == NULL) {
     std::cout << "Error while loading sounds. Cannot load sounds." << std::endl;
-    std::cout << "SDL message: " << SDL_GetError() << std::endl
-      << " | Mix library error: " << Mix_GetError() << std::endl;
+    std::cout << "Error messages: " << SDL_GetError() << std::endl;
     quit_ = true;
   }
   Mix_PlayMusic(music_, 999);
