@@ -39,7 +39,7 @@
     <ClInclude Include="renderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="object.hpp">
+    <ClInclude Include="graphic_object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="time_picker.hpp">
@@ -61,6 +61,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="edge_4d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="edge_2d.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

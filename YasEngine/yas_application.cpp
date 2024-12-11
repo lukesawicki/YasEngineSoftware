@@ -74,6 +74,23 @@ void YasApplication::PrepareWorldSettings() {
   for (int i = 0; i < test_box_3d.vertices_.size(); i++) {
     test_box_3d.rotated_vertices_[i]->Set(test_box_3d.vertices_[i]);
   }
+
+  test_box_3d.edges_in_2d.at(0).AddPoints(test_box_3d.vertices_in_2d_[0], test_box_3d.vertices_in_2d_[1]);
+  test_box_3d.edges_in_2d.at(1).AddPoints(test_box_3d.vertices_in_2d_[1], test_box_3d.vertices_in_2d_[2]);
+  test_box_3d.edges_in_2d.at(2).AddPoints(test_box_3d.vertices_in_2d_[2], test_box_3d.vertices_in_2d_[3]);
+  test_box_3d.edges_in_2d.at(3).AddPoints(test_box_3d.vertices_in_2d_[3], test_box_3d.vertices_in_2d_[0]);
+
+  test_box_3d.edges_in_2d.at(4).AddPoints(test_box_3d.vertices_in_2d_[4], test_box_3d.vertices_in_2d_[5]);
+  test_box_3d.edges_in_2d.at(5).AddPoints(test_box_3d.vertices_in_2d_[5], test_box_3d.vertices_in_2d_[6]);
+  test_box_3d.edges_in_2d.at(6).AddPoints(test_box_3d.vertices_in_2d_[6], test_box_3d.vertices_in_2d_[7]);
+  test_box_3d.edges_in_2d.at(7).AddPoints(test_box_3d.vertices_in_2d_[7], test_box_3d.vertices_in_2d_[4]);
+
+  test_box_3d.edges_in_2d.at(8).AddPoints(test_box_3d.vertices_in_2d_[5], test_box_3d.vertices_in_2d_[0]);
+  test_box_3d.edges_in_2d.at(9).AddPoints(test_box_3d.vertices_in_2d_[6], test_box_3d.vertices_in_2d_[1]);
+  test_box_3d.edges_in_2d.at(10).AddPoints(test_box_3d.vertices_in_2d_[7], test_box_3d.vertices_in_2d_[2]);
+  test_box_3d.edges_in_2d.at(11).AddPoints(test_box_3d.vertices_in_2d_[4], test_box_3d.vertices_in_2d_[3]);
+
+
 }
 
 void YasApplication::PrepareTestStuff() {
@@ -407,7 +424,7 @@ void YasApplication::Render() {
   pixels_table_->ClearColor(kBlack);
 
   DrawHudElements();
-  DrawBoxOnScreen();
+  DrawGraphicObjects();
   SDL_UpdateTexture(screen_texture_, NULL, pixels_table_->pixels_,
                     kScreenWidth * 4);
   SDL_RenderTexture(sdl_renderer_, screen_texture_, NULL, NULL);
@@ -657,22 +674,11 @@ void YasApplication::Set2dVerticesForTestBox() {
   }
 }
 
-void YasApplication::DrawBoxOnScreen() {
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[0], *test_box_3d.vertices_in_2d_[1], *pixels_table_, kYellow);
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[1], *test_box_3d.vertices_in_2d_[2], *pixels_table_, kYellow);
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[2], *test_box_3d.vertices_in_2d_[3], *pixels_table_, kYellow);
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[3], *test_box_3d.vertices_in_2d_[0], *pixels_table_, kYellow);
-  //
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[4], *test_box_3d.vertices_in_2d_[5], *pixels_table_, kYellow);
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[5], *test_box_3d.vertices_in_2d_[6], *pixels_table_, kYellow);
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[6], *test_box_3d.vertices_in_2d_[7], *pixels_table_, kYellow);
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[7], *test_box_3d.vertices_in_2d_[4], *pixels_table_, kYellow);
-  //
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[5], *test_box_3d.vertices_in_2d_[0], *pixels_table_, kYellow);
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[6], *test_box_3d.vertices_in_2d_[1], *pixels_table_, kYellow);
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[7], *test_box_3d.vertices_in_2d_[2], *pixels_table_, kYellow);
-  // DrawLineV1(*test_box_3d.vertices_in_2d_[4], *test_box_3d.vertices_in_2d_[3], *pixels_table_, kYellow);
-  DrawNumbersAsGroupOfLines(test_box_3d.vertices_in_2d_, kYellow, false);
+void YasApplication::DrawGraphicObjects() {
+  for (int i = 0; i < test_box_3d.edges_in_2d.size(); i++) {
+    DrawLineV1(*test_box_3d.edges_in_2d.at(i)._point0,
+               *test_box_3d.edges_in_2d.at(i)._point1, *pixels_table_, kYellow);
+  }
 }
 
 void YasApplication::DrawNumbersAsGroupOfLines(const std::vector<Vector2D<float>*> &vertices,

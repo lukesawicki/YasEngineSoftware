@@ -1,11 +1,12 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 #include <vector>
-
+#include <iostream>
+#include "edge_2d.hpp"
 #include "vector_2d.hpp"
 #include "vector_4d.hpp"
 
-class Object {
+class GraphicObject {
  public:
   Vector4D<float> position_;
   Vector4D<float> v0_;
@@ -23,9 +24,13 @@ class Object {
 
   std::vector<Vector2D<float>*> vertices_in_2d_;
   std::vector<Vector4D<float>*> resultVertices_;
+
+  std::vector<Edge2D<float>> edges_in_2d;
   // DODAC LISTE INDEKSOW TROJKATOW ONE MAJA SIE ODNOSIC DO resultVertices_
-  Object() {
+  GraphicObject() {
     // vertices_ = new Vector4D<float>*[8];
+    std::cout << "CALLED CONSTRUCTOR  ON GraphicsObject"
+              << "\n";
     vertices_.push_back(new Vector4D<float>(-20, 20, 20, 1));
     vertices_.push_back(new Vector4D<float>(20, 20, 20, 1));
     vertices_.push_back(new Vector4D<float>(20, 20, -20, 1));
@@ -59,6 +64,10 @@ class Object {
 
     for (int i = 0; i < 8; i++) {
       vertices_in_2d_.push_back(new Vector2D<float>(0, 0));
+    }
+
+    for (int i = 0; i < 12; i++) {
+      edges_in_2d.push_back(Edge2D<float>());
     }
 
     position_.Set(0, 0, -120, 1);

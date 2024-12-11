@@ -140,12 +140,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
+    <ClInclude Include="edge_2d.hpp" />
+    <ClInclude Include="edge_4d.hpp" />
     <ClInclude Include="matrix_4_4.hpp" />
     <ClInclude Include="pixels_table.hpp" />
     <ClInclude Include="polygon_2d.hpp" />
     <ClInclude Include="projector.hpp" />
     <ClInclude Include="renderer.hpp" />
-    <ClInclude Include="object.hpp" />
+    <ClInclude Include="graphic_object.hpp" />
     <ClInclude Include="time_picker.hpp" />
     <ClInclude Include="vector_2d.hpp" />
     <ClInclude Include="vector_3d.hpp" />

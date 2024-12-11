@@ -6,7 +6,7 @@
 #include "camera.hpp"
 #include "matrix_4_4.hpp"
 #include "pixels_table.hpp"
-#include "object.hpp"
+#include "graphic_object.hpp"
 #include "time_picker.hpp"
 
 class YasApplication {
@@ -34,6 +34,9 @@ class YasApplication {
     void Run();
 
   private:
+    YasApplication() {
+      
+    }
     static YasApplication *instance_;
     int endianness_=-1;
     TimePicker timePicker;
@@ -125,7 +128,7 @@ class YasApplication {
     Vector2D<float> test_static_line_point_0;
     Vector2D<float> test_static_line_point_1;
 
-    Object test_box_3d;
+    GraphicObject test_box_3d;
 
     void CheckEndianness();
 
@@ -185,7 +188,7 @@ class YasApplication {
 
     void Set2dVerticesForTestBox();
 
-    void DrawBoxOnScreen();
+    void DrawGraphicObjects();
 
     void DrawNumbersAsGroupOfLines(
         const std::vector<Vector2D<float> *> &vertices,
