@@ -3,6 +3,7 @@
 #include <SDL_mixer.h>
 
 #include <bit>
+#include <bitset>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -1192,7 +1193,58 @@ afterFor:
 }
 
 void YasEngine::LoadGraphicsFile() {
-  std::ifstream infile("example.tga", std::ifstream::binary);
+  std::ifstream tagFile("example.tga", std::ifstream::binary);
+  Tga some;
+  // char* id_length;
+  // id_length = new char[1];
+  // tgaFile.read(id_length, 1);
+  // std::cout << "Dlugosc id jest--> " << (int)(*id_length) << "\n";
+
+  // if (tagFile) {
+  //   // get length of file:
+  //   tagFile.seekg(0, tagFile.end);
+  //   int length = tagFile.tellg();
+  //   tagFile.seekg(0, tagFile.beg);
+  //
+  //   char* buffer = new char[length];
+  //
+  //   std::cout << "Reading " << length << " characters... ";
+  //   // read data as a block:
+  //   tagFile.read(buffer, length);
+  //   
+  //
+  //   if (tagFile)
+  //     std::cout << "all characters read successfully." << "\n";
+  //   else
+  //     std::cout << "error: only " << tagFile.gcount() << " could be read" << "\n";
+  //   tagFile.close();
+  //
+  //   // ...buffer contains the entire file...
+  //   std::cout << "Buffer size: " << length << "\n";
+  //
+  //   // colorMapLength = buffer[5];  // Color map length whi is written in 2 bytes
+  //
+  //   delete[] buffer;
+  // }
+
+  
+  std::streampos position = 12;
+
+  if (tagFile) {
+  
+    tagFile.seekg(position);
+
+    unsigned short colorMapLength=0;
+
+    tagFile.read(reinterpret_cast<char*>(&colorMapLength), sizeof(unsigned short));
+
+    std::cout << "Image width: " << colorMapLength << "\n";
+  } else {
+    std::cout << "Error while reading tga file!" << "\n";
+  }
+
+  int stop = 0;
+  std::cin >> stop;
 
 }
 
