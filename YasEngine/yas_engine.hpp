@@ -18,10 +18,13 @@
 #include "pixels_table.hpp"
 #include "player.hpp"
 #include "screen_writer.hpp"
+#include "tga.hpp"
 #include "vector_2d.hpp"
 
 class YasEngine {
  public:
+  Tga tga;
+
   bool tests_ = false;
   std::string engine_version_;
   int MAJOR_REVISION = 1;
@@ -264,6 +267,7 @@ class YasEngine {
   void BounceCollectibles(GameObject* game_object, Wall wall);
   void MoveObjects();
   void PrepareGameWorld();
+  void LoadGraphicsFile();
   void SetFrameAroundGameplaySpace();
   void PrepareDataForDrawingGraphs();
   void PrepareSineDrawing();

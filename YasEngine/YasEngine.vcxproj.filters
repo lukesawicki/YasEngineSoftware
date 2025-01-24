@@ -132,6 +132,9 @@
     <ClInclude Include="math_picture.hpp">
       <Filter>Gameplay</Filter>
     </ClInclude>
+    <ClInclude Include="tga.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yas_engine.cpp">

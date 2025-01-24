@@ -161,6 +161,7 @@
     <ClInclude Include="sine_points_generator.hpp" />
     <ClInclude Include="spawner.hpp" />
     <ClInclude Include="mathematics_graphs_surface.hpp" />
+    <ClInclude Include="tga.hpp" />
     <ClInclude Include="time_picker.hpp" />
     <ClInclude Include="vector_2d.hpp" />
     <ClInclude Include="vector_4d.hpp" />

@@ -1186,6 +1186,14 @@ afterFor:
   number_of_given_colors_.insert({"kBlue", 0});
   number_of_given_colors_.insert({"YELLOW", 0});
   PrepareDataForDrawingGraphs();
+
+  LoadGraphicsFile();
+
+}
+
+void YasEngine::LoadGraphicsFile() {
+  std::ifstream infile("example.tga", std::ifstream::binary);
+
 }
 
 void YasEngine::SetFrameAroundGameplaySpace() {
