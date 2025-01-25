@@ -33,6 +33,6 @@ class Tga {
     std::byte* image_id_; // byte index = 18 | length of memory for this value is in id_length_
     std::byte* color_map_; // byte index = is index of image_id_ + value from id_length_
 
-    std::byte* image_data_; // position calculated 
+    std::byte* image_data_; // position calculated // BGRA
 
   };

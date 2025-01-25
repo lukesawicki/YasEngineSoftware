@@ -135,6 +135,9 @@
     <ClInclude Include="tga.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="line_2d.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yas_engine.cpp">

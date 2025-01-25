@@ -11,6 +11,7 @@
 #include "button.hpp"
 #include "game_object.hpp"
 #include "input_output_handler.hpp"
+#include "line_2d.hpp"
 #include "map_frame.hpp"
 #include "math_picture.hpp"
 #include "mathematics_graphs_surface.hpp"
@@ -171,6 +172,8 @@ class YasEngine {
 
   Vector2D<float> test_point_0_;
   Vector2D<float> test_point_1_;
+  Line2D<float> test_line;
+  Vector4D<Uint8> test_color_;// RGBA
 
   ScreenWriter* writer_;
   int step_ = 0;
@@ -290,6 +293,7 @@ class YasEngine {
   void DrawHudElements(double& delta_time);
   void DrawFrame(double& delta_time);
   void Render(double& delta_time);
+  void DrawTestStuff();
   void RenderGameObjects();
   void RenderOnViewports();
   void RenderLevelChange();

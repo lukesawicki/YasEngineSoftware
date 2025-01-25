@@ -498,82 +498,100 @@ void YasEngine::Render(double& delta_time) {
   pixels_table_->ClearColor(kBlack);
   mathematics_graphs_surface_->ClearColor(kBlack);
 
-  switch (game_state_) {
-  case kIntro:
-      writer_->Write(-1 * ((line_22.size() * writer_->kfont_width_) / 2),
-                     writer_->vertical_top_positions_[1],
-                   line_22, kLightBlue, *pixels_table_);
-    writer_->Write(-1 * ((line_23.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[0],
-                   line_23, kRed, *pixels_table_);
-      writer_->Write(-1 * ((line_24.size() * writer_->kfont_width_) / 2),
-                     writer_->vertical_bottom_positions_[0],
-                   line_24, kYellow, *pixels_table_);
-    break;
-  case kMainMenuRestart:
-    DrawButtons();
-    break;
-  case kGameplay:
-    RenderGameObjects();
-    RenderOnViewports();
-    DrawFrame(delta_time);
-    break;
-  case kOutro:
-    writer_->Write(-1 * ((line_25.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[7],
-                   line_25, kLightBlue, *pixels_table_);
-    writer_->Write(-1 * ((line_26.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[6],
-                   line_26, kPurple, *pixels_table_);
-    writer_->Write(-1 * ((line_27.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[5],
-                   line_27, kLightBlue, *pixels_table_);
-    writer_->Write(-1 * ((line_28.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[4],
-                   line_28, kPurple, *pixels_table_);
-    writer_->Write(-1 * ((line_29.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[3],
-                   line_29, kLightBlue, *pixels_table_);
-    writer_->Write(-1 * ((line_30.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[2],
-                   line_30, kPurple, *pixels_table_);
-    writer_->Write(-1 * ((line_31.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[1],
-                   line_31, kGreen, *pixels_table_);
-    writer_->Write(-1 * ((line_32.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[0],
-                   line_32, kYellow, *pixels_table_);
-    writer_->Write(-1 * ((line_33.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[0],
-                   line_33, kYellow, *pixels_table_);
-    writer_->Write(-1 * ((line_34.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[1],
-                   line_34, kBlue, *pixels_table_);
-    writer_->Write(-1 * ((line_35.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[2],
-                   line_35, kYellow, *pixels_table_);
-    writer_->Write(-1 * ((line_36.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[3],
-                   line_36, kBlue, *pixels_table_);
-    writer_->Write(-1 * ((line_37.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[4],
-                   line_37, kYellow, *pixels_table_);
-    writer_->Write(-1 * ((line_38.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[5],
-                   line_38, kPolygon, *pixels_table_);
-    writer_->Write(-1 * ((line_39.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[6],
-                   line_39, kXportal, *pixels_table_);
+switch (game_state_) {
+    case kIntro:
+      writer_->Write(
+          -1 * ((static_cast<int>(line_22.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[1], line_22, kLightBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_23.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[0], line_23, kRed, *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_24.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[0], line_24, kYellow,
+          *pixels_table_);
+      break;
+    case kMainMenuRestart:
+      DrawButtons();
+      break;
+    case kGameplay:
+      RenderGameObjects();
+      RenderOnViewports();
+      DrawFrame(delta_time);
+      break;
+    case kOutro:
+      writer_->Write(
+          -1 * ((static_cast<int>(line_25.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[7], line_25, kLightBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_26.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[6], line_26, kPurple,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_27.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[5], line_27, kLightBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_28.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[4], line_28, kPurple,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_29.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[3], line_29, kLightBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_30.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[2], line_30, kPurple,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_31.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[1], line_31, kGreen, *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_32.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[0], line_32, kYellow,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_33.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[0], line_33, kYellow,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_34.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[1], line_34, kBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_35.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[2], line_35, kYellow,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_36.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[3], line_36, kBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_37.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[4], line_37, kYellow,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_38.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[5], line_38, kPolygon,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_39.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[6], line_39, kXportal,
+          *pixels_table_);
 
-    break;
-  case kLevelChangeScreen:
-    RenderLevelChange();
-    break;
-  case kYouWon:
-    RenderWonScreen();
-    break;
-  default: ;
+      break;
+    case kLevelChangeScreen:
+      RenderLevelChange();
+      break;
+    case kYouWon:
+      RenderWonScreen();
+      break;
+    default:;
   }
+
+  DrawTestStuff();
 
   DrawHudElements(delta_time);
 
@@ -581,6 +599,10 @@ void YasEngine::Render(double& delta_time) {
                     window_width_ * 4);
   SDL_RenderTexture(renderer_, screen_texture_, NULL, NULL);
   SDL_RenderPresent(renderer_);
+}
+
+void YasEngine::DrawTestStuff() {
+  DrawLine(test_line.point_0_, test_line.point_1_, *pixels_table_, test_color_);
 }
 
 void YasEngine::RenderGameObjects() {
@@ -631,91 +653,98 @@ void YasEngine::RenderOnViewports() {
 
 void YasEngine::RenderLevelChange() {
   switch (previous_level_) {
-  case 1:
+    case 1:
 
-    writer_->Write(-1 * ((line_1.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[1], line_1, kLightBlue,
-                   *pixels_table_);
-    writer_->Write(-1 * ((line_2.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[0], line_2, kBlue,
-                   *pixels_table_);
-    writer_->Write(-1 * ((line_3.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[0], line_3, kGreen,
-                   *pixels_table_);
-    break;
-  case 2:
+      writer_->Write(
+          -1 * ((static_cast<int>(line_1.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[1], line_1, kLightBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_2.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[0], line_2, kBlue, *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_3.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[0], line_3, kGreen,
+          *pixels_table_);
+      break;
+    case 2:
 
-    writer_->Write(-1 * ((line_4.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[1], line_4, kLightBlue,
-                   *pixels_table_);
-    writer_->Write(-1 * ((line_5.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[0], line_5, kBlue,
-                   *pixels_table_);
-    writer_->Write(-1 * ((line_6.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[0], line_6, kGreen,
-                   *pixels_table_);
-    break;
-  case 3:
+      writer_->Write(
+          -1 * ((static_cast<int>(line_4.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[1], line_4, kLightBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_5.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[0], line_5, kBlue, *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_6.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[0], line_6, kGreen,
+          *pixels_table_);
+      break;
+    case 3:
 
-    writer_->Write(-1 * ((line_7.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[1], line_7, kLightBlue,
-                   *pixels_table_);
-    writer_->Write(-1 * ((line_8.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[0], line_8, kBlue,
-                   *pixels_table_);
-    writer_->Write(-1 * ((line_9.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[0], line_9, kGreen,
-                   *pixels_table_);
-    break;
-  case 4:
+      writer_->Write(
+          -1 * ((static_cast<int>(line_7.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[1], line_7, kLightBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_8.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[0], line_8, kBlue, *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_9.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[0], line_9, kGreen,
+          *pixels_table_);
+      break;
+    case 4:
 
-    writer_->Write(-1 * ((line_10.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[1], line_10, kLightBlue,
-                   *pixels_table_);
-    writer_->Write(-1 * ((line_11.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_top_positions_[0], line_11, kBlue,
-                   *pixels_table_);
-    writer_->Write(-1 * ((line_12.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[0], line_12, kGreen,
-                   *pixels_table_);
-    writer_->Write(-1 * ((line_13.size() * writer_->kfont_width_) / 2),
-                   writer_->vertical_bottom_positions_[1], line_13, kYellow,
-                   *pixels_table_);
-    break;
-  default: ;
+      writer_->Write(
+          -1 * ((static_cast<int>(line_10.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[1], line_10, kLightBlue,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_11.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_top_positions_[0], line_11, kBlue, *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_12.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[0], line_12, kGreen,
+          *pixels_table_);
+      writer_->Write(
+          -1 * ((static_cast<int>(line_13.size()) * writer_->kfont_width_) / 2),
+          writer_->vertical_bottom_positions_[1], line_13, kYellow,
+          *pixels_table_);
+      break;
+    default:;
   }
 }
 
 void YasEngine::RenderWonScreen() {
   //  8 wierszy
 
-  writer_->Write(-1 * ((line_14.size() * writer_->kfont_width_) / 2),
-                 writer_->vertical_top_positions_[3], line_14, kLightBlue,
-                 *pixels_table_);
-  writer_->Write(-1 * ((line_15.size() * writer_->kfont_width_) / 2),
-                 writer_->vertical_top_positions_[2], line_15,
-                 kYellow,
-                 *pixels_table_);
-  writer_->Write(-1 * ((line_16.size() * writer_->kfont_width_) / 2),
-                 writer_->vertical_top_positions_[1], line_16,
-                 kPurple,
-                 *pixels_table_);
-  writer_->Write(-1 * ((line_17.size() * writer_->kfont_width_) / 2),
-                 writer_->vertical_top_positions_[0], line_17, kPurple,
-                 *pixels_table_);
-  writer_->Write(-1 * ((line_18.size() * writer_->kfont_width_) / 2),
-                 writer_->vertical_bottom_positions_[0], line_18,
-                 kPurple, *pixels_table_);
-  writer_->Write(-1 * ((line_19.size() * writer_->kfont_width_) / 2),
-                 writer_->vertical_bottom_positions_[1], line_19, kGreen,
-                 *pixels_table_);
-  writer_->Write(-1 * ((line_20.size() * writer_->kfont_width_) / 2),
-                 writer_->vertical_bottom_positions_[2], line_20,
-                 kYellow, *pixels_table_);
-  writer_->Write(-1 * ((line_21.size() * writer_->kfont_width_) / 2),
-                 writer_->vertical_bottom_positions_[3], line_21,
-                 kLightBlue,
-                 *pixels_table_);
+  writer_->Write(
+      -1 * ((static_cast<int>(line_14.size()) * writer_->kfont_width_) / 2),
+      writer_->vertical_top_positions_[3], line_14, kLightBlue, *pixels_table_);
+  writer_->Write(
+      -1 * ((static_cast<int>(line_15.size()) * writer_->kfont_width_) / 2),
+      writer_->vertical_top_positions_[2], line_15, kYellow, *pixels_table_);
+  writer_->Write(
+      -1 * ((static_cast<int>(line_16.size()) * writer_->kfont_width_) / 2),
+      writer_->vertical_top_positions_[1], line_16, kPurple, *pixels_table_);
+  writer_->Write(
+      -1 * ((static_cast<int>(line_17.size()) * writer_->kfont_width_) / 2),
+      writer_->vertical_top_positions_[0], line_17, kPurple, *pixels_table_);
+  writer_->Write(
+      -1 * ((static_cast<int>(line_18.size()) * writer_->kfont_width_) / 2),
+      writer_->vertical_bottom_positions_[0], line_18, kPurple, *pixels_table_);
+  writer_->Write(
+      -1 * ((static_cast<int>(line_19.size()) * writer_->kfont_width_) / 2),
+      writer_->vertical_bottom_positions_[1], line_19, kGreen, *pixels_table_);
+  writer_->Write(
+      -1 * ((static_cast<int>(line_20.size()) * writer_->kfont_width_) / 2),
+      writer_->vertical_bottom_positions_[2], line_20, kYellow, *pixels_table_);
+  writer_->Write(
+      -1 * ((static_cast<int>(line_21.size()) * writer_->kfont_width_) / 2),
+      writer_->vertical_bottom_positions_[3], line_21, kLightBlue,
+      *pixels_table_);
 }
 
 void YasEngine::HandlePhysics() {
@@ -1068,7 +1097,7 @@ void YasEngine::PrepareSoundAndMusic() {
   audio_specs_.format = MIX_DEFAULT_FORMAT;
   audio_specs_.channels = 2;
 
-  if (Mix_OpenAudio(0, &audio_specs_) < 0) {
+  if (Mix_OpenAudio(0, &audio_specs_)) {
     std::cout << "Error cannot open audio device" << std::endl;
   }
 
@@ -1190,6 +1219,24 @@ afterFor:
 
   LoadGraphicsFile();
 
+  test_line.point_0_.x_ = -128;
+  test_line.point_0_.y_ = 128;
+
+  test_line.point_1_.y_ = 255;
+  test_line.point_1_.x_ = 400;
+
+  //BGRA
+  //tga.image_data_[0];
+  int pixelPosition = 1;
+  test_color_.x_ = static_cast<Uint8>(tga.image_data_[pixelPosition + 2]);    // R
+  test_color_.y_ = static_cast<Uint8>(tga.image_data_[pixelPosition + 1]);  // G
+  test_color_.z_ = static_cast<Uint8>(tga.image_data_[pixelPosition + 0]);  // B
+  test_color_.w_ = static_cast<Uint8>(tga.image_data_[pixelPosition + 3]);  // A
+
+
+  // int stop = 0;
+  // std::cin >> stop;
+
 }
 
 void YasEngine::LoadGraphicsFile() {
@@ -1272,7 +1319,9 @@ void YasEngine::LoadGraphicsFile() {
       position = tga.dataPositions[12];
       tgaFile.seekg(position);
 
-      tgaFile.read(reinterpret_cast<char*>(&tga.image_id_),to_integer<int>(tga.id_length_));
+      tga.image_id_ = new std::byte[to_integer<int>(tga.id_length_)];
+
+      tgaFile.read(reinterpret_cast<char*>(tga.image_id_),to_integer<int>(tga.id_length_));
       // std::cout << "image_id_ = " <<  << "\n";
     }
 
@@ -1282,29 +1331,47 @@ void YasEngine::LoadGraphicsFile() {
 
     // OKODOWAC OPCJE KIEDY COLOR_MAP_LENGTH == 0 I NIE ROWNE ZERO
 
-    position = tga.dataPositions[13];
-    tgaFile.seekg(position);
-    // TUTAJ I NIEDALEKO POWYRZEJ UTWORZYC TABLICE ELEMENTOW O DLUGOSCI COLOR_MAP_LENGTH
-    int sizeOfColorMapInBytes = (tga.color_map_length_* to_integer<int>(tga.color_map_entry_size_))/8;
-    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_), sizeOfColorMapInBytes);
 
-    // std::cout << "color_map_ = " << to_integer<int>(tga.color_map_) << "\n";
+    int sizeOfColorMapInBytes = 0;
+    if (tga.first_entry_index_ != 0) {
+      position = tga.dataPositions[13];
+      tgaFile.seekg(position);
+      // TUTAJ I NIEDALEKO POWYRZEJ UTWORZYC TABLICE ELEMENTOW O DLUGOSCI
+      // COLOR_MAP_LENGTH
+      sizeOfColorMapInBytes =
+          (tga.color_map_length_ * to_integer<int>(tga.color_map_entry_size_)) /
+          8;
 
-    tga.dataPositions[14] = tga.dataPositions[13] + sizeOfColorMapInBytes;
-    position = tga.dataPositions[14];
-    tgaFile.seekg(position);
-    tgaFile.read(reinterpret_cast<char*>(&tga.image_data_), (tga.image_width_*tga.image_height_* to_integer<int>(tga.pixel_depth_))/8);
-    // sizeof(std::byte)); std::cout << "image_data_ = " <<
-    // to_integer<>(tga.image_data_) << "\n";	
+      tga.color_map_ = new std::byte[sizeOfColorMapInBytes];
+
+      tgaFile.read(reinterpret_cast<char*>(tga.color_map_),
+                   sizeOfColorMapInBytes);
+
+      // std::cout << "color_map_ = " << to_integer<int>(tga.color_map_) <<
+      // "\n";
+    }
+
+      tga.dataPositions[14] = tga.dataPositions[13] + sizeOfColorMapInBytes;
+      position = tga.dataPositions[14];
+      tgaFile.seekg(position);
+
+
+      int imageDataSize = ( (tga.image_width_ * tga.image_height_ * (to_integer<int>(tga.pixel_depth_)/8) ) );
+
+    tga.image_data_ = new std::byte[imageDataSize];
+
+      tgaFile.read(reinterpret_cast<char*>(tga.image_data_), imageDataSize);
+      // sizeof(std::byte)); std::cout << "image_data_ = " <<
+      // to_integer<>(tga.image_data_) << "\n";
+
+      // **** HERE GET PIXELS DATA FROM tga.image_data_;
 
 
   } else {
     std::cout << "Error while reading tga file!" << "\n";
   }
 
-  int stop = 0;
-  std::cin >> stop;
-
+  tgaFile.close();
 }
 
 void YasEngine::SetFrameAroundGameplaySpace() {

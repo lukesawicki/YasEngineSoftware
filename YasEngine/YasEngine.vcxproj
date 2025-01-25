@@ -145,6 +145,7 @@
     <ClInclude Include="font_surface.hpp" />
     <ClInclude Include="game_object.hpp" />
     <ClInclude Include="input_output_handler.hpp" />
+    <ClInclude Include="line_2d.hpp" />
     <ClInclude Include="line_segment.hpp" />
     <ClInclude Include="map_frame.hpp" />
     <ClInclude Include="mathematics.hpp" />
