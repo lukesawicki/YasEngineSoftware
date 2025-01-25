@@ -132,8 +132,6 @@ class YasEngine {
   bool first_16_spawned_ = false;
   int how_many_ = 0;
   Player* player_;
-  MathematicsGraphsSurface* mathematics_graphs_surface_;
-  std::vector<NodeNumbersOnTwoProceedingLevels*> spawners_positions_;
 
   const int kmax_collectibles_to_spawn_ = 64;
 
@@ -157,15 +155,6 @@ class YasEngine {
   int previous_level_ = 0;
   bool level_changed_ = false;
   const int kmax_level_ = 4;
-  int sine_points_harvested_ = 0;
-  int cosine_points_harvested_ = 0;
-  int primes_points_harvested_ = 0;
-  int fibonacci_points_harvested_ = 0;
-
-  int max_n_to_calculate_primes_ = 1000;
-  int max_n_to_calculate_fibonacci_ = 40;
-  int max_n_to_calculate_sine_ = 100;
-  int max_n_to_calculate_cosine_ = 100;
 
   std::map<std::string, int> number_of_given_colors_;
   Node* spawners_;
@@ -257,26 +246,13 @@ class YasEngine {
   void PrepareBasicSettings();
   void CheckEndianness();
   void HandlePhysics();
-  void HandleDisassemblingGraphs(GameObject* game_object);
-  void HandleDestroingCollectibles(GameObject* game_object);
-  void HandlingAssemblingGraphs(GameObject* game_object);
-  void HandleCollectiblesWithWallsCollisions(GameObject* object);
   bool IsObjectProtagonist(GameObject* game_object);
   GameObject* GetProtagonist(GameObject* game_object_0, GameObject* game_object_1);
   GameObject* GetNotProtagonist(GameObject* game_object_0, GameObject* game_object_1);
-  void HandleProtagonistWithWallsCollisions(GameObject* game_object);
-  void MoveObjectToMapBoundries(GameObject* game_object, Wall wall,
-                                int shift = 0);
-  void BounceCollectibles(GameObject* game_object, Wall wall);
   void MoveObjects();
   void PrepareGameWorld();
   void LoadGraphicsFile();
-  void SetFrameAroundGameplaySpace();
   void PrepareDataForDrawingGraphs();
-  void PrepareSineDrawing();
-  void PrepareCosineDrawing();
-  void PrepareFibonacciDrawing();
-  void PreparePrimesDrawing();
   void PreparePlayer();
   void PrepareInterface();
   void HandleInput(SDL_Event& event);
@@ -291,11 +267,9 @@ class YasEngine {
   void Update(double& delta_time);
   void ResetAll();
   void DrawHudElements(double& delta_time);
-  void DrawFrame(double& delta_time);
   void Render(double& delta_time);
   void DrawTestStuff();
   void RenderGameObjects();
-  void RenderOnViewports();
   void RenderLevelChange();
   void RenderWonScreen();
   Button::ButtonId CheckWhichButtonClicked();
