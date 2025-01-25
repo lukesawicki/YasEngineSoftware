@@ -1193,52 +1193,104 @@ afterFor:
 }
 
 void YasEngine::LoadGraphicsFile() {
-  std::ifstream tagFile("example.tga", std::ifstream::binary);
-  Tga some;
-  // char* id_length;
-  // id_length = new char[1];
-  // tgaFile.read(id_length, 1);
-  // std::cout << "Dlugosc id jest--> " << (int)(*id_length) << "\n";
+  std::ifstream tgaFile("example.tga", std::ifstream::binary);
+ 
+  std::streampos position = -1;
 
-  // if (tagFile) {
-  //   // get length of file:
-  //   tagFile.seekg(0, tagFile.end);
-  //   int length = tagFile.tellg();
-  //   tagFile.seekg(0, tagFile.beg);
-  //
-  //   char* buffer = new char[length];
-  //
-  //   std::cout << "Reading " << length << " characters... ";
-  //   // read data as a block:
-  //   tagFile.read(buffer, length);
-  //   
-  //
-  //   if (tagFile)
-  //     std::cout << "all characters read successfully." << "\n";
-  //   else
-  //     std::cout << "error: only " << tagFile.gcount() << " could be read" << "\n";
-  //   tagFile.close();
-  //
-  //   // ...buffer contains the entire file...
-  //   std::cout << "Buffer size: " << length << "\n";
-  //
-  //   // colorMapLength = buffer[5];  // Color map length whi is written in 2 bytes
-  //
-  //   delete[] buffer;
-  // }
+  if (tgaFile) {
 
-  
-  std::streampos position = 12;
+    position = tga.dataPositions[0];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.id_length_), sizeof(std::byte));
+    std::cout << "Length of id = " << to_integer<int>(tga.id_length_) << "\n";
 
-  if (tagFile) {
-  
-    tagFile.seekg(position);
+        position = tga.dataPositions[1];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_type_),
+                 sizeof(std::byte));
+    std::cout << "color_map_type_ = " << to_integer<int>(tga.color_map_type_)
+              << "\n";
 
-    unsigned short colorMapLength=0;
+    position = tga.dataPositions[2];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.image_type_), sizeof(std::byte));
+    std::cout << "image_type_ = " << to_integer<int>(tga.image_type_) << "\n";
 
-    tagFile.read(reinterpret_cast<char*>(&colorMapLength), sizeof(unsigned short));
+    position = tga.dataPositions[3];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.first_entry_index_),sizeof(unsigned short));
+    std::cout << "first_entry_index_ = " << tga.first_entry_index_ << "\n";
 
-    std::cout << "Image width: " << colorMapLength << "\n";
+    position = tga.dataPositions[4];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_length_),sizeof(unsigned short));
+    std::cout << "color_map_length_ = " << tga.color_map_length_ << "\n";
+
+    position = tga.dataPositions[5];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_entry_size_),
+                 sizeof(std::byte));
+    std::cout << "color_map_entry_size_ = "
+              << to_integer<int>(tga.color_map_entry_size_) << "\n";
+
+    position = tga.dataPositions[6];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.x_origin_),
+                 sizeof(unsigned short));
+    std::cout << "x_origin_ = " << tga.x_origin_ << "\n";
+
+    position = tga.dataPositions[7];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.y_origin_),
+                 sizeof(unsigned short));
+    std::cout << "y_origin_ = " << tga.y_origin_ << "\n";
+
+    position = tga.dataPositions[8];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.image_width_),
+                 sizeof(unsigned short));
+    std::cout << "image_width_ = " << tga.image_width_ << "\n";
+
+    position = tga.dataPositions[9];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.image_height_),sizeof(unsigned short));
+    std::cout << "image_height_ = " << tga.image_height_ << "\n";
+
+    position = tga.dataPositions[10];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.pixel_depth_), sizeof(std::byte));
+    std::cout << "pixel_depth_ = " << to_integer<int>(tga.pixel_depth_) << "\n";
+
+    position = tga.dataPositions[11];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.image_descriptor_),
+                 sizeof(std::byte));
+    std::cout << "image_descriptor_ = " << to_integer<int>(tga.image_descriptor_)
+              << "\n";
+
+    if (to_integer<int>(tga.id_length_) != 0) {
+      position = tga.dataPositions[12];
+      tgaFile.seekg(position);
+
+      tgaFile.read(reinterpret_cast<char*>(&tga.image_id_),
+                   sizeof(std::byte[tga.id_length_]));
+      // std::cout << "image_id_ = " <<  << "\n";
+    }
+
+
+    position = tga.dataPositions[13];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_),
+    sizeof(std::byte)); std::cout << "color_map_ = " <<
+    to_integer<>(tga.color_map_) << "\n";
+
+    // position = tga.dataPositions[14];
+    // tgaFile.seekg(position);
+    // tgaFile.read(reinterpret_cast<char*>(&tga.image_data_),
+    // sizeof(std::byte)); std::cout << "image_data_ = " <<
+    // to_integer<>(tga.image_data_) << "\n";	
+
+
   } else {
     std::cout << "Error while reading tga file!" << "\n";
   }

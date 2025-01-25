@@ -4,7 +4,9 @@ class Tga {
   
   public:
     // Tga header {
-    const long dataPositions[] = {0, 1, 2, 3, 5, 7, 8, 10, 12, 14, 16, 17, 18, -1, -1, -1, -1 }; // last value i end of image_data_
+    static constexpr int knumber_of_tga_file_fields = 17;
+    ///////////////////////////////////////////////// 0__1__2__3__4__5__6__7___8___9___10__11__12__13__14
+    long dataPositions[knumber_of_tga_file_fields] = {0, 1, 2, 3, 5, 7, 8, 10, 12, 14, 16, 17, 18, -1, -1}; // last value i end of image_data_
     std::byte id_length_; // byte index = 0
     std::byte color_map_type_;  // byte index = 1
     std::byte image_type_;  // byte index = 2
@@ -29,7 +31,7 @@ class Tga {
 
     // Image and color map data
     std::byte* image_id_; // byte index = 18 | length of memory for this value is in id_length_
-      std::byte* color_map_; // byte index = is index of image_id_ + value from id_length_
+    std::byte* color_map_; // byte index = is index of image_id_ + value from id_length_
 
     std::byte* image_data_; // position calculated 
 
