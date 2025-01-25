@@ -1272,21 +1272,28 @@ void YasEngine::LoadGraphicsFile() {
       position = tga.dataPositions[12];
       tgaFile.seekg(position);
 
-      tgaFile.read(reinterpret_cast<char*>(&tga.image_id_),
-                   sizeof(std::byte[tga.id_length_]));
+      tgaFile.read(reinterpret_cast<char*>(&tga.image_id_),to_integer<int>(tga.id_length_));
       // std::cout << "image_id_ = " <<  << "\n";
     }
 
 
+    tga.dataPositions[13] = tga.dataPositions[12] + to_integer<int>(tga.id_length_);
+
+
+    // OKODOWAC OPCJE KIEDY COLOR_MAP_LENGTH == 0 I NIE ROWNE ZERO
+
     position = tga.dataPositions[13];
     tgaFile.seekg(position);
-    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_),
-    sizeof(std::byte)); std::cout << "color_map_ = " <<
-    to_integer<>(tga.color_map_) << "\n";
+    // TUTAJ I NIEDALEKO POWYRZEJ UTWORZYC TABLICE ELEMENTOW O DLUGOSCI COLOR_MAP_LENGTH
+    int sizeOfColorMapInBytes = (tga.color_map_length_* to_integer<int>(tga.color_map_entry_size_))/8;
+    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_), sizeOfColorMapInBytes);
 
-    // position = tga.dataPositions[14];
-    // tgaFile.seekg(position);
-    // tgaFile.read(reinterpret_cast<char*>(&tga.image_data_),
+    // std::cout << "color_map_ = " << to_integer<int>(tga.color_map_) << "\n";
+
+    tga.dataPositions[14] = tga.dataPositions[13] + sizeOfColorMapInBytes;
+    position = tga.dataPositions[14];
+    tgaFile.seekg(position);
+    tgaFile.read(reinterpret_cast<char*>(&tga.image_data_), (tga.image_width_*tga.image_height_* to_integer<int>(tga.pixel_depth_))/8);
     // sizeof(std::byte)); std::cout << "image_data_ = " <<
     // to_integer<>(tga.image_data_) << "\n";	
 
