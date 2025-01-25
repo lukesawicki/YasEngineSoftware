@@ -149,8 +149,8 @@ void YasEngine::PrepareBasicSettings() {
   SDL_DisplayID display_id = SDL_GetPrimaryDisplay();
   const SDL_DisplayMode* display_mode = SDL_GetCurrentDisplayMode(display_id);
 
-  window_width_ = display_mode->w;
-  window_height_ = display_mode->w / 2;
+  // window_width_ = display_mode->w;
+  // window_height_ = display_mode->w / 2;
 
   window_dimensions_ = new Vector2D<int>(window_width_, window_height_);
   // Uint32 windowFlags = SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_BORDERLESS |
@@ -359,8 +359,7 @@ void YasEngine::PreparePlayer() {
   int x = Randomizer::DrawNumberClosedInterval(0, size_Of_gameplay_space) - 64;
   int y = Randomizer::DrawNumberClosedInterval(0, size_Of_gameplay_space) - 64;
 
-  player_ =
-    new Player(static_cast<float>((-size_Of_gameplay_space) + x), 0.0F + y);
+  player_ = new Player(0.0F, 0.0F);
   player_->set_color(kYellow);
   player_->set_input(input_);
   player_->set_input(mouse_position_change_information_);
@@ -516,6 +515,22 @@ switch (game_state_) {
 
 void YasEngine::DrawTestStuff() {
   DrawLine(test_line.point_0_, test_line.point_1_, *pixels_table_, test_color_);
+
+  // int numberOfPixels = window_dimensions_->x_ * window_dimensions_->y_;
+  // int index = numberOfPixels-1;
+  // for (int i = 0; i < numberOfPixels;i++) {
+  //   pixels_table_->pixels_[i * 4 + 0]/*R*/ = static_cast <Uint8>(tga.image_data_[index * 4 + 2]); //BGRA 
+  //   pixels_table_->pixels_[i * 4 + 1]/*G*/ = static_cast <Uint8>(tga.image_data_[index * 4 + 1]); //BGRA 
+  //   pixels_table_->pixels_[i * 4 + 2]/*B*/ = static_cast <Uint8>(tga.image_data_[index * 4 + 0]); //BGRA 
+  //   pixels_table_->pixels_[i * 4 + 3]/*A*/ = static_cast <Uint8>(tga.image_data_[index * 4 + 3]); //BGRA
+  //   index--;
+  // }
+
+  int index = 0;
+  for (int i = 0; i < pixels_table_->window_dimensions_.x_*pixels_table_->window_dimensions_.y_*4; i++) {
+      pixels_table_->pixels_[index] = tga.pixels_[index];
+      index++;
+  }
 
 }
 
@@ -858,12 +873,78 @@ void YasEngine::LoadGraphicsFile() {
       position = tga.dataPositions[14];
       tgaFile.seekg(position);
 
+      // GDZIE KURWA ZNIKNELO ODCZYTANIE DANYCH KURWA DO image_data
 
       int imageDataSize = ( (tga.image_width_ * tga.image_height_ * (to_integer<int>(tga.pixel_depth_)/8) ) );
 
     tga.image_data_ = new std::byte[imageDataSize];
+    tgaFile.read(reinterpret_cast<char*>(tga.image_data_), imageDataSize);
 
-      tgaFile.read(reinterpret_cast<char*>(tga.image_data_), imageDataSize);
+    int numberOfBytes = imageDataSize;
+    tga.pixels_ = new Uint8[imageDataSize];
+
+    int numberOfPixels = tga.image_width_ * tga.image_height_;
+
+      // int numberOfPixels = window_dimensions_->x_ * window_dimensions_->y_;
+    // int index = numberOfPixels-1;
+    // for (int i = 0; i < numberOfPixels;i++) {
+    //   pixels_table_->pixels_[i * 4 + 0]/*R*/ = static_cast
+    //   <Uint8>(tga.image_data_[index * 4 + 2]); //BGRA
+    //   pixels_table_->pixels_[i * 4 + 1]/*G*/ = static_cast
+    //   <Uint8>(tga.image_data_[index * 4 + 1]); //BGRA
+    //   pixels_table_->pixels_[i * 4 + 2]/*B*/ = static_cast
+    //   <Uint8>(tga.image_data_[index * 4 + 0]); //BGRA
+    //   pixels_table_->pixels_[i * 4 + 3]/*A*/ = static_cast
+    //   <Uint8>(tga.image_data_[index * 4 + 3]); //BGRA index--;
+    // }
+
+    //int index = numberOfPixels-1;
+
+    int index = numberOfPixels - 1;
+    for (int i = 0; i < numberOfPixels;i++) {
+      tga.pixels_[(i * 4) + 0]/*R*/ = static_cast<Uint8>(tga.image_data_[(index * 4) + 2]); //BGRA
+      tga.pixels_[(i * 4) + 1]/*G*/ = static_cast<Uint8>(tga.image_data_[(index * 4) + 1]); //BGRA
+      tga.pixels_[(i * 4) + 2]/*B*/ = static_cast<Uint8>(tga.image_data_[(index * 4) + 0]); //BGRA
+      tga.pixels_[(i * 4) + 3]/*A*/ = static_cast<Uint8>(tga.image_data_[(index * 4) + 3]); //BGRA index--;
+      index--;
+    }
+    //////////////////////////
+
+    //   int numberOfPixels = window_dimensions_->x_ * window_dimensions_->y_;
+    // int index = numberOfPixels-1;
+    // for (int i = 0; i < numberOfPixels;i++) {
+    //   pixels_table_->pixels_[i * 4 + 0]/*R*/ = static_cast
+    //   <Uint8>(tga.image_data_[index * 4 + 2]); //BGRA
+    //   pixels_table_->pixels_[i * 4 + 1]/*G*/ = static_cast
+    //   <Uint8>(tga.image_data_[index * 4 + 1]); //BGRA
+    //   pixels_table_->pixels_[i * 4 + 2]/*B*/ = static_cast
+    //   <Uint8>(tga.image_data_[index * 4 + 0]); //BGRA
+    //   pixels_table_->pixels_[i * 4 + 3]/*A*/ = static_cast
+    //   <Uint8>(tga.image_data_[index * 4 + 3]); //BGRA index--;
+    // }
+
+    /////////////////////////
+
+
+
+
+
+    // // przepisywanie muszi byc nie wprost tak jak to zrobile w tym tescie
+    // for (int i = 0; i < numberOfPixels; i++) {
+    //   tga.pixels_[i * 4 + 0] /*R*/ =
+    //       static_cast<Uint8>(tga.image_data_[index * 4 + 2]);  // BGRA
+    //   tga.pixels_[i * 4 + 1] /*G*/ =
+    //       static_cast<Uint8>(tga.image_data_[index * 4 + 1]);  // BGRA
+    //   tga.pixels_[i * 4 + 2] /*B*/ =
+    //       static_cast<Uint8>(tga.image_data_[index * 4 + 0]);  // BGRA
+    //   tga.pixels_[i * 4 + 3] /*A*/ =
+    //       static_cast<Uint8>(tga.image_data_[index * 4 + 3]);  // BGRA
+    //   index--;
+    // }
+
+    //BGRA 
+
+      
       // sizeof(std::byte)); std::cout << "image_data_ = " <<
       // to_integer<>(tga.image_data_) << "\n";
 

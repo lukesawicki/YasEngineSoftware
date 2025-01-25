@@ -35,4 +35,6 @@ class Tga {
 
     std::byte* image_data_; // position calculated // BGRA
 
+    Uint8* pixels_;
+
   };

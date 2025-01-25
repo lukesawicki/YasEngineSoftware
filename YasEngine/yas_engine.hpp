@@ -125,8 +125,8 @@ class YasEngine {
   float mouse_x_;
   float mouse_y_;
 
-  int window_width_ = 800;
-  int window_height_ = 400;
+  int window_width_ = 512;
+  int window_height_ = 512;
 
   std::vector<GameObject*> objects_to_draw_;
   bool first_16_spawned_ = false;
