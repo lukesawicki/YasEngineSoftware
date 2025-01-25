@@ -158,9 +158,11 @@ void YasEngine::PrepareBasicSettings() {
   window_height_ = display_mode->w / 2;
 
   window_dimensions_ = new Vector2D<int>(window_width_, window_height_);
-  Uint32 windowFlags = SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_BORDERLESS |
-    SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_RESIZABLE |
-    SDL_WINDOW_OPENGL; // SDL_WINDOW_ALWAYS_ON_TOP
+  // Uint32 windowFlags = SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_BORDERLESS |
+  //   SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_RESIZABLE |
+  //   SDL_WINDOW_OPENGL; // SDL_WINDOW_ALWAYS_ON_TOP
+
+    Uint32 windowFlags = SDL_WINDOW_OPENGL;  // SDL_WINDOW_ALWAYS_ON_TOP
   window_ =
     SDL_CreateWindow("YasEngine", window_width_, window_height_, windowFlags);
 
@@ -591,9 +593,11 @@ switch (game_state_) {
     default:;
   }
 
-  DrawTestStuff();
+  
 
   DrawHudElements(delta_time);
+
+  DrawTestStuff();
 
   SDL_UpdateTexture(screen_texture_, NULL, pixels_table_->pixels_,
                     window_width_ * 4);
@@ -603,6 +607,15 @@ switch (game_state_) {
 
 void YasEngine::DrawTestStuff() {
   DrawLine(test_line.point_0_, test_line.point_1_, *pixels_table_, test_color_);
+//   int i = 0;
+//   int j = 65535;
+//   for (int y = 0; y < 256; y++) {
+//     for (int x = 0; x < 256; x++) {
+//       pixels_table_->pixels_[i] = (Uint8)tga.image_data_[j]; // std::byte*
+//       i++;
+//       j--;
+//     }
+//   }
 }
 
 void YasEngine::RenderGameObjects() {
@@ -1227,11 +1240,31 @@ afterFor:
 
   //BGRA
   //tga.image_data_[0];
-  int pixelPosition = 1;
-  test_color_.x_ = static_cast<Uint8>(tga.image_data_[pixelPosition + 2]);    // R
-  test_color_.y_ = static_cast<Uint8>(tga.image_data_[pixelPosition + 1]);  // G
-  test_color_.z_ = static_cast<Uint8>(tga.image_data_[pixelPosition + 0]);  // B
-  test_color_.w_ = static_cast<Uint8>(tga.image_data_[pixelPosition + 3]);  // A
+
+  // tga.image_descriptor_
+
+  // bool isTopToBottom(std::byte image_descriptor) {
+  //   const std::byte bit5Mask = std::byte{0x20};
+  //   return (image_descriptor & bit5Mask) != std::byte{0};
+  // }
+
+  const std::byte bit5Mask = std::byte{0x20};
+  bool isTopToBottm = ((tga.image_descriptor_ & bit5Mask) != std::byte{0});
+
+  if (isTopToBottm) {
+    std::cout << "Top to bottom" << "\n";
+  } else {
+    std::cout << "Bottom to row" << "\n";
+  }
+
+  // BGRA
+  // tga.image_data_[0];
+
+  int pixelPosition = 15;
+  test_color_.x_ = static_cast<Uint8>(tga.image_data_[pixelPosition * 4 + 2]);  // R
+  test_color_.y_ = static_cast<Uint8>(tga.image_data_[pixelPosition * 4 + 1]);  // G
+  test_color_.z_ = static_cast<Uint8>(tga.image_data_[pixelPosition * 4 + 0]);  // B
+  test_color_.w_ = static_cast<Uint8>(tga.image_data_[pixelPosition * 4 + 3]);  // A
 
 
   // int stop = 0;
