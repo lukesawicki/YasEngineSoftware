@@ -525,11 +525,8 @@ void YasEngine::DrawTestStuff() {
   //   pixels_table_->pixels_[i * 4 + 3]/*A*/ = static_cast <Uint8>(tga.image_data_[index * 4 + 3]); //BGRA
   //   index--;
   // }
-
-  int index = 0;
   for (int i = 0; i < pixels_table_->window_dimensions_.x_*pixels_table_->window_dimensions_.y_*4; i++) {
-      pixels_table_->pixels_[index] = tga.pixels_[index];
-      index++;
+      pixels_table_->pixels_[i] = tga.pixels_[i];
   }
 
 }
@@ -873,83 +870,35 @@ void YasEngine::LoadGraphicsFile() {
       position = tga.dataPositions[14];
       tgaFile.seekg(position);
 
-      // GDZIE KURWA ZNIKNELO ODCZYTANIE DANYCH KURWA DO image_data
-
       int imageDataSize = ( (tga.image_width_ * tga.image_height_ * (to_integer<int>(tga.pixel_depth_)/8) ) );
 
     tga.image_data_ = new std::byte[imageDataSize];
     tgaFile.read(reinterpret_cast<char*>(tga.image_data_), imageDataSize);
 
-    int numberOfBytes = imageDataSize;
     tga.pixels_ = new Uint8[imageDataSize];
 
     int numberOfPixels = tga.image_width_ * tga.image_height_;
+    int wiersz_tga=tga.image_height_;
+    int pixel_tga=0;
+    int index_tga = imageDataSize - tga.image_width_*4;
 
-      // int numberOfPixels = window_dimensions_->x_ * window_dimensions_->y_;
-    // int index = numberOfPixels-1;
-    // for (int i = 0; i < numberOfPixels;i++) {
-    //   pixels_table_->pixels_[i * 4 + 0]/*R*/ = static_cast
-    //   <Uint8>(tga.image_data_[index * 4 + 2]); //BGRA
-    //   pixels_table_->pixels_[i * 4 + 1]/*G*/ = static_cast
-    //   <Uint8>(tga.image_data_[index * 4 + 1]); //BGRA
-    //   pixels_table_->pixels_[i * 4 + 2]/*B*/ = static_cast
-    //   <Uint8>(tga.image_data_[index * 4 + 0]); //BGRA
-    //   pixels_table_->pixels_[i * 4 + 3]/*A*/ = static_cast
-    //   <Uint8>(tga.image_data_[index * 4 + 3]); //BGRA index--;
-    // }
+    int wiesz_pixels = 0;
+    int pixel_pixels = 0;
+    int index_pixels = wiesz_pixels + pixel_pixels; // tutaj jade po wierszach
 
-    //int index = numberOfPixels-1;
+    int k;
 
-    int index = numberOfPixels - 1;
-    for (int i = 0; i < numberOfPixels;i++) {
-      tga.pixels_[(i * 4) + 0]/*R*/ = static_cast<Uint8>(tga.image_data_[(index * 4) + 2]); //BGRA
-      tga.pixels_[(i * 4) + 1]/*G*/ = static_cast<Uint8>(tga.image_data_[(index * 4) + 1]); //BGRA
-      tga.pixels_[(i * 4) + 2]/*B*/ = static_cast<Uint8>(tga.image_data_[(index * 4) + 0]); //BGRA
-      tga.pixels_[(i * 4) + 3]/*A*/ = static_cast<Uint8>(tga.image_data_[(index * 4) + 3]); //BGRA index--;
-      index--;
+
+
+    for (int i = 0; i < tga.image_height_; i++) {
+      for (int j = 0; j < tga.image_width_; j++) {
+        k = numberOfPixels - tga.image_width_*(i + 1) + j;
+        tga.pixels_[k+0] /*R*/ = static_cast<Uint8>(tga.image_data_[(i*tga.image_width_+j)+2]);  // BGRA
+        tga.pixels_[k+1] /*G*/ = static_cast<Uint8>(tga.image_data_[(i*tga.image_width_+j)+1]);  // BGRA
+        tga.pixels_[k+2] /*B*/ = static_cast<Uint8>(tga.image_data_[(i*tga.image_width_+j)+0]);  // BGRA
+        tga.pixels_[k+3] /*A*/ = static_cast<Uint8>(tga.image_data_[(i*tga.image_width_+j)+3]);  // BGRA index--;
+      }
     }
-    //////////////////////////
-
-    //   int numberOfPixels = window_dimensions_->x_ * window_dimensions_->y_;
-    // int index = numberOfPixels-1;
-    // for (int i = 0; i < numberOfPixels;i++) {
-    //   pixels_table_->pixels_[i * 4 + 0]/*R*/ = static_cast
-    //   <Uint8>(tga.image_data_[index * 4 + 2]); //BGRA
-    //   pixels_table_->pixels_[i * 4 + 1]/*G*/ = static_cast
-    //   <Uint8>(tga.image_data_[index * 4 + 1]); //BGRA
-    //   pixels_table_->pixels_[i * 4 + 2]/*B*/ = static_cast
-    //   <Uint8>(tga.image_data_[index * 4 + 0]); //BGRA
-    //   pixels_table_->pixels_[i * 4 + 3]/*A*/ = static_cast
-    //   <Uint8>(tga.image_data_[index * 4 + 3]); //BGRA index--;
-    // }
-
-    /////////////////////////
-
-
-
-
-
-    // // przepisywanie muszi byc nie wprost tak jak to zrobile w tym tescie
-    // for (int i = 0; i < numberOfPixels; i++) {
-    //   tga.pixels_[i * 4 + 0] /*R*/ =
-    //       static_cast<Uint8>(tga.image_data_[index * 4 + 2]);  // BGRA
-    //   tga.pixels_[i * 4 + 1] /*G*/ =
-    //       static_cast<Uint8>(tga.image_data_[index * 4 + 1]);  // BGRA
-    //   tga.pixels_[i * 4 + 2] /*B*/ =
-    //       static_cast<Uint8>(tga.image_data_[index * 4 + 0]);  // BGRA
-    //   tga.pixels_[i * 4 + 3] /*A*/ =
-    //       static_cast<Uint8>(tga.image_data_[index * 4 + 3]);  // BGRA
-    //   index--;
-    // }
-
-    //BGRA 
-
-      
-      // sizeof(std::byte)); std::cout << "image_data_ = " <<
-      // to_integer<>(tga.image_data_) << "\n";
-
-      // **** HERE GET PIXELS DATA FROM tga.image_data_;
-
 
   } else {
     std::cout << "Error while reading tga file!" << "\n";
@@ -957,6 +906,23 @@ void YasEngine::LoadGraphicsFile() {
 
   tgaFile.close();
 }
+
+// void flipVertical(std::vector<Pixel>& imageData, int width, int height) {
+//   // Calculate the number of pixels per row
+//   int rowSize = width;
+//
+//   // Loop through half the rows
+//   for (int y = 0; y < height / 2; ++y) {
+//     // Calculate indices for the rows to swap
+//     int topRowIndex = y * rowSize;
+//     int bottomRowIndex = (height - 1 - y) * rowSize;
+//
+//     // Swap the rows
+//     for (int x = 0; x < rowSize; ++x) {
+//       std::swap(imageData[topRowIndex + x], imageData[bottomRowIndex + x]);
+//     }
+//   }
+// }
 
 void YasEngine::PrepareDataForDrawingGraphs() {
 
