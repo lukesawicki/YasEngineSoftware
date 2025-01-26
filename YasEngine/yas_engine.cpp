@@ -893,13 +893,12 @@ void YasEngine::LoadGraphicsFile() {
     for (int i = 0; i < tga.image_height_; i++) {
       for (int j = 0; j < tga.image_width_; j++) {
         k = numberOfPixels - tga.image_width_*(i + 1) + j;
-        tga.pixels_[k+0] /*R*/ = static_cast<Uint8>(tga.image_data_[(i*tga.image_width_+j)+2]);  // BGRA
-        tga.pixels_[k+1] /*G*/ = static_cast<Uint8>(tga.image_data_[(i*tga.image_width_+j)+1]);  // BGRA
-        tga.pixels_[k+2] /*B*/ = static_cast<Uint8>(tga.image_data_[(i*tga.image_width_+j)+0]);  // BGRA
-        tga.pixels_[k+3] /*A*/ = static_cast<Uint8>(tga.image_data_[(i*tga.image_width_+j)+3]);  // BGRA index--;
+        tga.pixels_[4*(i*tga.image_width_+j)+0] /*R*/ = static_cast<Uint8>(tga.image_data_[4*k + 2]);  // BGRA
+        tga.pixels_[4*(i*tga.image_width_+j)+1] /*G*/ = static_cast<Uint8>(tga.image_data_[4*k + 1]);  // BGRA
+        tga.pixels_[4*(i*tga.image_width_+j)+2] /*B*/ = static_cast<Uint8>(tga.image_data_[4*k + 0]);  // BGRA
+        tga.pixels_[4*(i*tga.image_width_+j)+3] /*A*/ = static_cast<Uint8>(tga.image_data_[4*k + 3]);  // BGRA index--;
       }
     }
-
   } else {
     std::cout << "Error while reading tga file!" << "\n";
   }
