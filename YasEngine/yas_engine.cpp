@@ -933,11 +933,252 @@ void YasEngine::LoadGraphicsFile(std::string fileName) { //"example.tga"
 
   std::cout << "Image file: " << fileName.c_str() << " loaded successfully.\n\n\n\n";
 
+  std::cout << "Creating and saving default value for output tga files\n";
+
+  tgaFileWithDefaultValues.id_length_ = tga.id_length_;
+  tgaFileWithDefaultValues.color_map_type_ = tga.color_map_type_;
+  tgaFileWithDefaultValues.image_type_ = tga.image_type_;
+  tgaFileWithDefaultValues.first_entry_index_ = tga.first_entry_index_;
+  tgaFileWithDefaultValues.color_map_length_ = tga.color_map_length_;
+  tgaFileWithDefaultValues.color_map_entry_size_ = tga.color_map_entry_size_;
+  tgaFileWithDefaultValues.x_origin_ = tga.x_origin_;
+  tgaFileWithDefaultValues.y_origin_ = tga.y_origin_;
+  tgaFileWithDefaultValues.image_width_ = tga.image_width_;
+  tgaFileWithDefaultValues.image_height_ = tga.image_height_;
+  tgaFileWithDefaultValues.pixel_depth_ = tga.pixel_depth_;
+  tgaFileWithDefaultValues.image_descriptor_ = tga.image_descriptor_;
+  //std::byte* image_id_;
+  //std::byte* color_map_;
+  //std::byte* image_data_;
+
   tgaFile.close();
+
+  SaveGraphicsFile("tga_test.tga", tga.pixels_, 512, 512);
 }
 
-void YasEngine::SaveGraphicsFile(std::string fileName, std::byte* pixelsTable) {
+void YasEngine::SaveGraphicsFile(std::string fileName, Uint8* pixelsTable, short imageWidth, short imageHeight) {
+  std::cout << "\n\n\n\Writing *.tga file: " << fileName.c_str() << "\n";
 
+  Tga tgaToWrite;
+  tgaToWrite.image_width_ = imageWidth;
+  tgaToWrite.image_height_ = imageWidth;
+
+  tgaToWrite.id_length_ = tgaFileWithDefaultValues.id_length_;
+  tgaToWrite.color_map_type_ = tgaFileWithDefaultValues.color_map_type_;
+  tgaToWrite.image_type_ = tgaFileWithDefaultValues.image_type_;
+  tgaToWrite.first_entry_index_ = tgaFileWithDefaultValues.first_entry_index_;
+  tgaToWrite.color_map_length_ = tgaFileWithDefaultValues.color_map_length_;
+  tgaToWrite.color_map_entry_size_ = tgaFileWithDefaultValues.color_map_entry_size_;
+  tgaToWrite.x_origin_ = tgaFileWithDefaultValues.x_origin_;
+  tgaToWrite.y_origin_ = tgaFileWithDefaultValues.y_origin_;
+  tgaToWrite.pixel_depth_ = tgaFileWithDefaultValues.pixel_depth_;
+  tgaToWrite.image_descriptor_ = tgaFileWithDefaultValues.image_descriptor_;
+
+  int imageDataSize = ( (tgaToWrite.image_width_ * tgaToWrite.image_height_ * (to_integer<int>(tgaToWrite.pixel_depth_)/8) ) );
+
+  tgaToWrite.image_data_ = new std::byte[imageDataSize];
+
+  int k;
+  int numberOfPixels = imageWidth * imageHeight;
+  for (int i = 0; i < tgaToWrite.image_height_; i++) {
+    for (int j = 0; j < tgaToWrite.image_width_; j++) {
+      k = numberOfPixels - tgaToWrite.image_width_ * (i + 1) + j;
+       tgaToWrite.image_data_[4 * k + 2]  /*R*/  = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 0]) ;// BGRA
+       tgaToWrite.image_data_[4 * k + 1]  /*G*/  = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 1]) ;// BGRA
+       tgaToWrite.image_data_[4 * k + 0]  /*B*/  = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 2]) ;// BGRA
+       tgaToWrite.image_data_[4 * k + 3]  /*A*/  = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 3]) ;// BGRA index--;
+    }
+  }
+
+  std::ofstream tgaFile(fileName.c_str(), std::ifstream::binary);
+
+  std::streampos position = -1;
+
+  if (tgaFile) {
+    std::cout << "Reading TGA 32 bits BGRA without RLE" << "\n";
+    std::cout << "Reading Header: " << "\n";
+
+    position = tgaToWrite.dataPositions[0];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.id_length_),
+                  sizeof(std::byte));
+
+    std::cout << "Field id_length_ \"ID length\" with value: "
+              << to_integer<int>(tgaToWrite.id_length_) << "\n";
+
+    position = tgaToWrite.dataPositions[1];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.color_map_type_),
+                  sizeof(std::byte));
+
+    std::cout << "Field color_map_type_ \"Color map type\" with value: "
+              << to_integer<int>(tgaToWrite.color_map_type_) << "\n";
+
+    position = tgaToWrite.dataPositions[2];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.image_type_),
+                  sizeof(std::byte));
+
+    std::cout << "Field image_type_ \"Image type\" with value: "
+              << to_integer<int>(tgaToWrite.image_type_) << "\n";
+
+    std::cout << "Reading Color map specification" << "\n";
+
+    position = tgaToWrite.dataPositions[3];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.first_entry_index_),
+                  sizeof(unsigned short));
+
+    std::cout << "Field first_entry_index_ \"First entry index\" with value: "
+              << tgaToWrite.first_entry_index_ << "\n";
+
+    position = tgaToWrite.dataPositions[4];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.color_map_length_),
+                  sizeof(unsigned short));
+
+    std::cout << "Field color_map_length_ \"Color map length\" with value: "
+              << tgaToWrite.color_map_length_ << "\n";
+
+    position = tgaToWrite.dataPositions[5];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.color_map_entry_size_),
+                  sizeof(std::byte));
+
+    std::cout
+        << "Field color_map_entry_size_ \"Color map entry size\" with value: "
+        << to_integer<int>(tgaToWrite.color_map_entry_size_) << "\n";
+
+    std::cout << "Reading Image specification" << "\n";
+
+    position = tgaToWrite.dataPositions[6];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.x_origin_),
+                  sizeof(unsigned short));
+
+    std::cout << "Field x_origin_ \"X-origin\" with value: "
+              << tgaToWrite.x_origin_ << "\n";
+
+    position = tgaToWrite.dataPositions[7];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.y_origin_),
+                  sizeof(unsigned short));
+
+    std::cout << "Field y_origin_ \"Y-origin\" with value: "
+              << tgaToWrite.y_origin_ << "\n";
+
+    position = tgaToWrite.dataPositions[8];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.image_width_),
+                  sizeof(unsigned short));
+
+    std::cout << "Field image_width_ \"Image width\" with value: "
+              << tgaToWrite.image_width_ << "\n";
+
+    position = tgaToWrite.dataPositions[9];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.image_height_),
+                  sizeof(unsigned short));
+
+    std::cout << "Field image_height_ \"Image height\" with value: "
+              << tgaToWrite.image_height_ << "\n";
+
+    position = tgaToWrite.dataPositions[10];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.pixel_depth_),
+                  sizeof(std::byte));
+
+    std::cout << "Field pixel_depth_ \"Pixel depth\" with value: "
+              << to_integer<int>(tgaToWrite.pixel_depth_) << "\n";
+
+    position = tgaToWrite.dataPositions[11];
+    // tgaFile.seekg(position);
+    tgaFile.write(reinterpret_cast<char*>(&tgaToWrite.image_descriptor_),
+                  sizeof(std::byte));
+    std::cout << "Field image_descriptor_ \"Image descriptor\"\n"
+              << "Image descriptor has 1 byte of size which include in it:\n"
+              << "bits 3–0 give the alpha channel depth, bits 5–4 give pixel "
+                 "ordering\n"
+              << "Bit 4 of the image descriptor byte indicates right-to-left "
+                 "pixel ordering if set.\n"
+              << "Bit 5 indicates an ordering of top-to-bottom. Otherwise, "
+                 "pixels are stored in bottom-to-top, left-to-right order."
+              << "Field image descriptor whole value is: "
+              << to_integer<int>(tgaToWrite.image_descriptor_) << "\n";
+
+    std::cout << "Reading Image and color map data:\n";
+
+    if (to_integer<int>(tgaToWrite.id_length_) != 0) {
+      position = tgaToWrite.dataPositions[12];
+      // tgaFile.seekg(position);
+      tgaToWrite.image_id_ =
+          new std::byte[to_integer<int>(tgaToWrite.id_length_)];
+      tgaFile.write(reinterpret_cast<char*>(tgaToWrite.image_id_),
+                    to_integer<int>(tgaToWrite.id_length_));
+      std::cout << "Field image_id_ \"Image ID\" with value: "
+                << to_integer<int>(tgaToWrite.id_length_);
+    }
+
+    std::cout << "Calculating Color map data position in file:\n";
+
+    tgaToWrite.dataPositions[13] =
+        tgaToWrite.dataPositions[12] + to_integer<int>(tgaToWrite.id_length_);
+
+    std::cout << "Calculated position: " << tgaToWrite.dataPositions[13]
+              << "\n";
+
+    int sizeOfColorMapInBytes = 0;
+
+    if (tgaToWrite.first_entry_index_ != 0) {
+      position = tgaToWrite.dataPositions[13];
+      // tgaFile.seekg(position);
+      std::cout << "Calculating size of color map in bytes" << "\n";
+
+      sizeOfColorMapInBytes =
+          (tgaToWrite.color_map_length_ *
+           to_integer<int>(tgaToWrite.color_map_entry_size_)) /
+          8;
+
+      std::cout << "Calculated value: " << sizeOfColorMapInBytes << "\n";
+      tgaToWrite.color_map_ = new std::byte[sizeOfColorMapInBytes];
+      tgaFile.write(reinterpret_cast<char*>(tgaToWrite.color_map_),
+                    sizeOfColorMapInBytes);
+      std::cout << "Field color_map_ \"Color map data\" with value: "
+                << tgaToWrite.color_map_ << "\n";
+    }
+    std::cout << "Calculating Image data position in file\n";
+
+    tgaToWrite.dataPositions[14] =
+        tgaToWrite.dataPositions[13] + sizeOfColorMapInBytes;
+
+    std::cout << "Calculated position: " << tgaToWrite.dataPositions[14]
+              << "\n";
+
+    position = tgaToWrite.dataPositions[14];
+    // tgaFile.seekg(position);
+
+    std::cout << "Calculating Image data size in bytes:\n";
+
+    int imageDataSize = ((tgaToWrite.image_width_ * tgaToWrite.image_height_ *
+                          (to_integer<int>(tgaToWrite.pixel_depth_) / 8)));
+
+    std::cout << "Calculated size: " << imageDataSize << "\n";
+
+    tgaToWrite.image_data_ = new std::byte[imageDataSize];
+
+    std::cout << "Reading Image data:\n";
+
+    tgaFile.write(reinterpret_cast<char*>(tgaToWrite.image_data_),
+                  imageDataSize);
+
+  } else {
+    std::cout << "Error while writing tga file!" << "\n";
+  }
+
+  std::cout << "Image file: " << fileName.c_str()
+            << " saved successfully.\n\n\n\n";
+
+  tgaFile.close();
 }
 
 void YasEngine::PrepareDataForDrawingGraphs() {

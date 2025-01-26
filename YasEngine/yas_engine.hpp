@@ -25,6 +25,7 @@
 class YasEngine {
  public:
   Tga tga;
+  Tga tgaFileWithDefaultValues;
 
   bool tests_ = false;
   std::string engine_version_;
@@ -252,7 +253,7 @@ class YasEngine {
   void MoveObjects();
   void PrepareGameWorld();
   void LoadGraphicsFile(std::string fileName);  //"example.tga"
-  void SaveGraphicsFile(std::string fileName, std::byte* pixelsTable);
+  void SaveGraphicsFile(std::string fileName, Uint8* pixelsTable, short imageWidth, short imageHeight);
   void PrepareDataForDrawingGraphs();
   void PreparePlayer();
   void PrepareInterface();
