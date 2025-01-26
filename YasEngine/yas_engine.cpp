@@ -755,114 +755,152 @@ void YasEngine::PrepareGameWorld() {
 }
 
 void YasEngine::LoadGraphicsFile(std::string fileName) { //"example.tga"
+
+  std::cout << "\n\n\n\nReading *.tga file: " << fileName.c_str() << "\n";
+
   std::ifstream tgaFile(fileName.c_str(), std::ifstream::binary);
  
   std::streampos position = -1;
 
   if (tgaFile) {
 
+    std::cout << "Reading TGA 32 bits BGRA without RLE" << "\n";
+    std::cout << "Reading Header: " << "\n";
+
     position = tga.dataPositions[0];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.id_length_), sizeof(std::byte));
-    std::cout << "Length of id = " << to_integer<int>(tga.id_length_) << "\n";
 
-        position = tga.dataPositions[1];
+    std::cout << "Field id_length_ \"ID length\" with value: " << to_integer<int>(tga.id_length_) << "\n";
+
+    position = tga.dataPositions[1];
     tgaFile.seekg(position);
-    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_type_),
-                 sizeof(std::byte));
-    std::cout << "color_map_type_ = " << to_integer<int>(tga.color_map_type_)
-              << "\n";
+    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_type_), sizeof(std::byte));
+
+    std::cout << "Field color_map_type_ \"Color map type\" with value: " << to_integer<int>(tga.color_map_type_) << "\n";
 
     position = tga.dataPositions[2];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.image_type_), sizeof(std::byte));
-    std::cout << "image_type_ = " << to_integer<int>(tga.image_type_) << "\n";
+
+    std::cout << "Field image_type_ \"Image type\" with value: "  << to_integer<int>(tga.image_type_) << "\n";
+
+    std::cout << "Reading Color map specification" << "\n";
 
     position = tga.dataPositions[3];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.first_entry_index_),sizeof(unsigned short));
-    std::cout << "first_entry_index_ = " << tga.first_entry_index_ << "\n";
+
+    std::cout << "Field first_entry_index_ \"First entry index\" with value: " << tga.first_entry_index_ << "\n";
 
     position = tga.dataPositions[4];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.color_map_length_),sizeof(unsigned short));
-    std::cout << "color_map_length_ = " << tga.color_map_length_ << "\n";
+
+    std::cout <<"Field color_map_length_ \"Color map length\" with value: " << tga.color_map_length_ << "\n";
 
     position = tga.dataPositions[5];
     tgaFile.seekg(position);
-    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_entry_size_),
-                 sizeof(std::byte));
-    std::cout << "color_map_entry_size_ = "
-              << to_integer<int>(tga.color_map_entry_size_) << "\n";
+    tgaFile.read(reinterpret_cast<char*>(&tga.color_map_entry_size_), sizeof(std::byte));
+
+    std::cout << "Field color_map_entry_size_ \"Color map entry size\" with value: " << to_integer<int>(tga.color_map_entry_size_) << "\n";
+
+    std::cout << "Reading Image specification" << "\n";
 
     position = tga.dataPositions[6];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.x_origin_),
                  sizeof(unsigned short));
-    std::cout << "x_origin_ = " << tga.x_origin_ << "\n";
+
+    std::cout << "Field x_origin_ \"X-origin\" with value: " << tga.x_origin_ << "\n";
 
     position = tga.dataPositions[7];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.y_origin_),
                  sizeof(unsigned short));
-    std::cout << "y_origin_ = " << tga.y_origin_ << "\n";
+
+    std::cout << "Field y_origin_ \"Y-origin\" with value: " << tga.y_origin_ << "\n";
 
     position = tga.dataPositions[8];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.image_width_),
                  sizeof(unsigned short));
-    std::cout << "image_width_ = " << tga.image_width_ << "\n";
+
+    std::cout << "Field image_width_ \"Image width\" with value: " << tga.image_width_ << "\n";
 
     position = tga.dataPositions[9];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.image_height_),sizeof(unsigned short));
-    std::cout << "image_height_ = " << tga.image_height_ << "\n";
+
+    std::cout << "Field image_height_ \"Image height\" with value: " << tga.image_height_ << "\n";
 
     position = tga.dataPositions[10];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.pixel_depth_), sizeof(std::byte));
-    std::cout << "pixel_depth_ = " << to_integer<int>(tga.pixel_depth_) << "\n";
+
+    std::cout << "Field pixel_depth_ \"Pixel depth\" with value: " << to_integer<int>(tga.pixel_depth_) << "\n";
 
     position = tga.dataPositions[11];
     tgaFile.seekg(position);
     tgaFile.read(reinterpret_cast<char*>(&tga.image_descriptor_),
                  sizeof(std::byte));
-    std::cout << "image_descriptor_ = " << to_integer<int>(tga.image_descriptor_)
+    std::cout << "Field image_descriptor_ \"Image descriptor\"\n"
+              << "Image descriptor has 1 byte of size which include in it:\n"
+              << "bits 3–0 give the alpha channel depth, bits 5–4 give pixel ordering\n"
+              << "Bit 4 of the image descriptor byte indicates right-to-left pixel ordering if set.\n"
+              << "Bit 5 indicates an ordering of top-to-bottom. Otherwise, pixels are stored in bottom-to-top, left-to-right order."
+              << "Field image descriptor whole value is: " << to_integer<int>(tga.image_descriptor_)
               << "\n";
+
+    std::cout << "Reading Image and color map data:\n";
 
     if (to_integer<int>(tga.id_length_) != 0) {
       position = tga.dataPositions[12];
       tgaFile.seekg(position);
-
       tga.image_id_ = new std::byte[to_integer<int>(tga.id_length_)];
-
       tgaFile.read(reinterpret_cast<char*>(tga.image_id_),to_integer<int>(tga.id_length_));
+      std::cout << "Field image_id_ \"Image ID\" with value: " << to_integer<int>(tga.id_length_);
     }
 
+    std::cout << "Calculating Color map data position in file:\n";
 
     tga.dataPositions[13] = tga.dataPositions[12] + to_integer<int>(tga.id_length_);
 
+    std::cout << "Calculated position: " << tga.dataPositions[13] << "\n";
+
     int sizeOfColorMapInBytes = 0;
+
     if (tga.first_entry_index_ != 0) {
       position = tga.dataPositions[13];
       tgaFile.seekg(position);
+      std::cout << "Calculating size of color map in bytes" << "\n";
 
-      sizeOfColorMapInBytes = (tga.color_map_length_ * to_integer<int>(tga.color_map_entry_size_)) /
-          8;
+      sizeOfColorMapInBytes = (tga.color_map_length_ * to_integer<int>(tga.color_map_entry_size_)) / 8;
 
+      std::cout << "Calculated value: " << sizeOfColorMapInBytes << "\n";
       tga.color_map_ = new std::byte[sizeOfColorMapInBytes];
-
-      tgaFile.read(reinterpret_cast<char*>(tga.color_map_),
-                   sizeOfColorMapInBytes);
+      tgaFile.read(reinterpret_cast<char*>(tga.color_map_), sizeOfColorMapInBytes);
+      std::cout << "Field color_map_ \"Color map data\" with value: " << tga.color_map_ << "\n";
     }
+    std::cout << "Calculating Image data position in file\n";
 
     tga.dataPositions[14] = tga.dataPositions[13] + sizeOfColorMapInBytes;
+
+    std::cout << "Calculated position: " << tga.dataPositions[14] << "\n";
+
     position = tga.dataPositions[14];
     tgaFile.seekg(position);
 
+    std::cout << "Calculating Image data size in bytes:\n";
+
     int imageDataSize = ( (tga.image_width_ * tga.image_height_ * (to_integer<int>(tga.pixel_depth_)/8) ) );
 
+    std::cout << "Calculated size: " << imageDataSize << "\n";
+
     tga.image_data_ = new std::byte[imageDataSize];
+
+    std::cout << "Reading Image data:\n";
+
     tgaFile.read(reinterpret_cast<char*>(tga.image_data_), imageDataSize);
 
     tga.pixels_ = new Uint8[imageDataSize];
@@ -878,6 +916,8 @@ void YasEngine::LoadGraphicsFile(std::string fileName) { //"example.tga"
 
     int k;
 
+    std::cout << "Rewriting Image data to internal data format";
+
     for (int i = 0; i < tga.image_height_; i++) {
       for (int j = 0; j < tga.image_width_; j++) {
         k = numberOfPixels - tga.image_width_*(i + 1) + j;
@@ -890,6 +930,8 @@ void YasEngine::LoadGraphicsFile(std::string fileName) { //"example.tga"
   } else {
     std::cout << "Error while reading tga file!" << "\n";
   }
+
+  std::cout << "Image file: " << fileName.c_str() << " loaded successfully.\n\n\n\n";
 
   tgaFile.close();
 }
