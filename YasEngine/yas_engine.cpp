@@ -729,7 +729,7 @@ void YasEngine::PrepareGameWorld() {
   number_of_given_colors_.insert({"YELLOW", 0});
   PrepareDataForDrawingGraphs();
 
-  LoadGraphicsFile();
+  LoadGraphicsFile("example.tga");
 
   test_line.point_0_.x_ = -128;
   test_line.point_0_.y_ = 128;
@@ -754,8 +754,8 @@ void YasEngine::PrepareGameWorld() {
 
 }
 
-void YasEngine::LoadGraphicsFile() {
-  std::ifstream tgaFile("example.tga", std::ifstream::binary);
+void YasEngine::LoadGraphicsFile(std::string fileName) { //"example.tga"
+  std::ifstream tgaFile(fileName.c_str(), std::ifstream::binary);
  
   std::streampos position = -1;
 
@@ -837,40 +837,30 @@ void YasEngine::LoadGraphicsFile() {
       tga.image_id_ = new std::byte[to_integer<int>(tga.id_length_)];
 
       tgaFile.read(reinterpret_cast<char*>(tga.image_id_),to_integer<int>(tga.id_length_));
-      // std::cout << "image_id_ = " <<  << "\n";
     }
 
 
     tga.dataPositions[13] = tga.dataPositions[12] + to_integer<int>(tga.id_length_);
 
-
-    // OKODOWAC OPCJE KIEDY COLOR_MAP_LENGTH == 0 I NIE ROWNE ZERO
-
-
     int sizeOfColorMapInBytes = 0;
     if (tga.first_entry_index_ != 0) {
       position = tga.dataPositions[13];
       tgaFile.seekg(position);
-      // TUTAJ I NIEDALEKO POWYRZEJ UTWORZYC TABLICE ELEMENTOW O DLUGOSCI
-      // COLOR_MAP_LENGTH
-      sizeOfColorMapInBytes =
-          (tga.color_map_length_ * to_integer<int>(tga.color_map_entry_size_)) /
+
+      sizeOfColorMapInBytes = (tga.color_map_length_ * to_integer<int>(tga.color_map_entry_size_)) /
           8;
 
       tga.color_map_ = new std::byte[sizeOfColorMapInBytes];
 
       tgaFile.read(reinterpret_cast<char*>(tga.color_map_),
                    sizeOfColorMapInBytes);
-
-      // std::cout << "color_map_ = " << to_integer<int>(tga.color_map_) <<
-      // "\n";
     }
 
-      tga.dataPositions[14] = tga.dataPositions[13] + sizeOfColorMapInBytes;
-      position = tga.dataPositions[14];
-      tgaFile.seekg(position);
+    tga.dataPositions[14] = tga.dataPositions[13] + sizeOfColorMapInBytes;
+    position = tga.dataPositions[14];
+    tgaFile.seekg(position);
 
-      int imageDataSize = ( (tga.image_width_ * tga.image_height_ * (to_integer<int>(tga.pixel_depth_)/8) ) );
+    int imageDataSize = ( (tga.image_width_ * tga.image_height_ * (to_integer<int>(tga.pixel_depth_)/8) ) );
 
     tga.image_data_ = new std::byte[imageDataSize];
     tgaFile.read(reinterpret_cast<char*>(tga.image_data_), imageDataSize);
@@ -884,11 +874,9 @@ void YasEngine::LoadGraphicsFile() {
 
     int wiesz_pixels = 0;
     int pixel_pixels = 0;
-    int index_pixels = wiesz_pixels + pixel_pixels; // tutaj jade po wierszach
+    int index_pixels = wiesz_pixels + pixel_pixels;
 
     int k;
-
-
 
     for (int i = 0; i < tga.image_height_; i++) {
       for (int j = 0; j < tga.image_width_; j++) {
@@ -906,22 +894,9 @@ void YasEngine::LoadGraphicsFile() {
   tgaFile.close();
 }
 
-// void flipVertical(std::vector<Pixel>& imageData, int width, int height) {
-//   // Calculate the number of pixels per row
-//   int rowSize = width;
-//
-//   // Loop through half the rows
-//   for (int y = 0; y < height / 2; ++y) {
-//     // Calculate indices for the rows to swap
-//     int topRowIndex = y * rowSize;
-//     int bottomRowIndex = (height - 1 - y) * rowSize;
-//
-//     // Swap the rows
-//     for (int x = 0; x < rowSize; ++x) {
-//       std::swap(imageData[topRowIndex + x], imageData[bottomRowIndex + x]);
-//     }
-//   }
-// }
+void YasEngine::SaveGraphicsFile(std::string fileName, std::byte* pixelsTable) {
+
+}
 
 void YasEngine::PrepareDataForDrawingGraphs() {
 

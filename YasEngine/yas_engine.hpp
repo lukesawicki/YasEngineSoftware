@@ -251,7 +251,8 @@ class YasEngine {
   GameObject* GetNotProtagonist(GameObject* game_object_0, GameObject* game_object_1);
   void MoveObjects();
   void PrepareGameWorld();
-  void LoadGraphicsFile();
+  void LoadGraphicsFile(std::string fileName);  //"example.tga"
+  void SaveGraphicsFile(std::string fileName, std::byte* pixelsTable);
   void PrepareDataForDrawingGraphs();
   void PreparePlayer();
   void PrepareInterface();
