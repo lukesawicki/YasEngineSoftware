@@ -953,7 +953,7 @@ void YasEngine::LoadGraphicsFile(std::string fileName) { //"example.tga"
 
   tgaFile.close();
 
-  SaveGraphicsFile("tga_test.tga", tga.pixels_, 512, 512);
+  SaveGraphicsFile("____tga_test.tga", tga.pixels_, 512, 512);
 }
 
 void YasEngine::SaveGraphicsFile(std::string fileName, Uint8* pixelsTable, short imageWidth, short imageHeight) {
@@ -979,18 +979,18 @@ void YasEngine::SaveGraphicsFile(std::string fileName, Uint8* pixelsTable, short
   tgaToWrite.image_data_ = new std::byte[imageDataSize];
 
   int k;
-  int numberOfPixels = imageWidth * imageHeight;
+  int numberOfPixels = tgaToWrite.image_width_ * tgaToWrite.image_height_;
   for (int i = 0; i < tgaToWrite.image_height_; i++) {
     for (int j = 0; j < tgaToWrite.image_width_; j++) {
       k = numberOfPixels - tgaToWrite.image_width_ * (i + 1) + j;
-       tgaToWrite.image_data_[4 * k + 2]  /*R*/  = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 0]) ;// BGRA
-       tgaToWrite.image_data_[4 * k + 1]  /*G*/  = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 1]) ;// BGRA
-       tgaToWrite.image_data_[4 * k + 0]  /*B*/  = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 2]) ;// BGRA
-       tgaToWrite.image_data_[4 * k + 3]  /*A*/  = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 3]) ;// BGRA index--;
+       tgaToWrite.image_data_[4 * k + 2] /* BGRA */ = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 0]);  /*R*/
+       tgaToWrite.image_data_[4 * k + 1] /* BGRA */ = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 1]);  /*G*/
+       tgaToWrite.image_data_[4 * k + 0] /* BGRA */ = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 2]);  /*B*/
+       tgaToWrite.image_data_[4 * k + 3] /* BGRA */ = static_cast<std::byte>(pixelsTable[4 * (i * tgaToWrite.image_width_ + j) + 3]);  /*A*/
     }
   }
 
-  std::ofstream tgaFile(fileName.c_str(), std::ifstream::binary);
+  std::ofstream tgaFile(fileName.c_str(), std::ofstream::binary);
 
   std::streampos position = -1;
 
@@ -1164,7 +1164,7 @@ void YasEngine::SaveGraphicsFile(std::string fileName, Uint8* pixelsTable, short
 
     std::cout << "Calculated size: " << imageDataSize << "\n";
 
-    tgaToWrite.image_data_ = new std::byte[imageDataSize];
+    // tgaToWrite.image_data_ = new std::byte[imageDataSize];
 
     std::cout << "Reading Image data:\n";
 
