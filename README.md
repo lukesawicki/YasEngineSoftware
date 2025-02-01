@@ -1,5 +1,9 @@
 # YasEngineSoftware
 
+**** UPDATE *****
+2025-02-01 I DECIDED TO DEVELOP THIS ENGINE IN JAVA. FOR SOME TIME NEW REPO "YasEngine" will be private.
+**** END OF UPDATE ****
+
 I have stopped developing version on master and now focusing only on rendering on branch: 3D_Renderer. When I will finish simple 3D renderer I will return to YasEngine as whole tool to create games.
 This new 3D YasEngine will be used for the purpose of creating new 3D game loosely based on Beauty of Math.
 
